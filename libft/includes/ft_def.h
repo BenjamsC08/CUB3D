@@ -43,6 +43,8 @@
 #define MAJ_HEX 'X'
 #define MIN_HEX 'x'
 
+typedef unsigned char	t_byte;
+
 typedef struct s_list
 {
 	void				*content;

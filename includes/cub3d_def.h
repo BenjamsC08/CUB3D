@@ -17,12 +17,24 @@
 # define S_KEY 115
 # define ESC 65307
 
+typedef struct s_data_desc
+{
+	char	*path_no;
+	char	*path_so;
+	char	*path_we;
+	char	*path_ea;
+	t_byte	floor_color;
+	t_byte	celing_color;
+	char	**map;
+}			t_data_desc;
+
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	t_gc	*gc;
-	t_gc	**gc_head;
+	void		*mlx;
+	void		*win;
+	t_gc		*gc;
+	t_gc		**gc_head;
+	t_data_desc	*data_desc;
 }				t_game;
 
 #endif

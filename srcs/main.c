@@ -13,6 +13,9 @@ int	init_base(t_game *game)
 			"CUB3D");
 	if (!game->win)
 		return (ft_clear_gc(game->gc_head), 0);
+	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
+	if (!game->data_desc)
+		return (ft_clear_gc(game->gc_head), 0);
 	return (1);
 }
 
@@ -52,7 +55,7 @@ int main(int argc, char **argv)
 		return (1);
 	if (!good_file_ext(argv[1]))
 		return (close_all(&game), not_a_good_file(EXT));
-	// if (!load_cub_file(argv[1]))
+	// if (!load_cub_file(&game, argv[1]))
 	// 	return (ft_clear_gc(game.gc_head), not_a_good_file(OPEN));
 	game_loop(&game);
 	return (0);
