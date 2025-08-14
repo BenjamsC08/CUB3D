@@ -6,7 +6,7 @@
 /*   By: benjamsc <benjamsc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 21:46:14 by benjamsc          #+#    #+#             */
-/*   Updated: 2024/11/11 21:47:18 by benjamsc         ###   ########.fr       */
+/*   Updated: 2025/08/14 08:50:34 by benjamsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while ((s1[i] == s2[i]) && s1[i] && s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 /*
 #include <string.h>
 int main()
