@@ -1,5 +1,5 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 NAME = CUB3D
 SRCS = srcs/main.c srcs/parser/parsing_1.c
 OBJ = $(SRCS:.c=.o)

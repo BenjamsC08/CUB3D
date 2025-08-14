@@ -35,6 +35,69 @@ int	good_file_ext(char *str)
 	return (0);
 }
 
+
+
+// int	check_line(char *line)
+// {
+// 	if (ft_strncmp(line,"NO ", 3) && ft_strncmp(line,"SO ", 3) && ft_strncmp(line,"WE ", 3) && ft_strncmp(line,"EA ", 3)
+// 		&& ft_strncmp(line,"F ", 2) && ft_strncmp(line,"C ", 2))
+// 		return (1);
+// 	if (!ft_strncmp(line,"NO ", 3))
+// 	{
+// 		// check and load path North texture
+// 	}
+// 	if (!ft_strncmp(line,"SO ", 3))
+// 	{
+// 		// check and load path South texture
+// 	}
+// 	if (!ft_strncmp(line,"WE ", 3))
+// 	{
+// 		// check and load path West texture
+// 	}
+// 	if (!ft_strncmp(line,"EA ", 3))
+// 	{
+// 		// check and load path East texture
+// 	}
+// 	if (!ft_strncmp(line,"F ", 2))
+// 	{
+// 		// check and load Floor colors
+// 	}
+// 	if (!ft_strncmp(line,"C ", 2))
+// 	{
+// 		// check and load Celling colors
+// 	}
+// 	return (0);
+//
+// }
+//
+// int	check_file(int fd)
+// {
+// 	char	*line;
+// 	int		i;
+// 	int		k;
+//
+// 	i = 0;
+// 	k = 0;
+// 	line = get_next_line(fd);
+// 	if (!line)
+// 		return (0);
+// 	while (line)
+// 	{
+// 		if (ft_strcmp(line, "\n"))
+// 		{
+// 			k = check_line(line);
+// 			if (k)
+// 				return (k);
+// 			i++;
+// 		}
+// 		free(line);
+// 		if (i >= 5)
+// 			check_map(fd);
+// 		else
+// 			line = get_next_line(fd);
+// 	}
+// }
+
 int load_cub_file(char *str)
 {
 	int		fd;
@@ -44,6 +107,7 @@ int load_cub_file(char *str)
 	fd = open(str, O_RDONLY);
 	if (fd < 0 || read(fd, buffer, 0) < 0)
 		return (0);
+	// check_file(fd);
 	close (fd);
 	return (1);
 }
