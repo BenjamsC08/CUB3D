@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	if (!good_file_ext(argv[1]))
 		return (close_all(&game), not_a_good_file(EXT));
 	// if (!load_cub_file(&game, argv[1]))
-	// 	return (ft_clear_gc(game.gc_head), not_a_good_file(OPEN));
+	// 	return (ft_clear_gc(game.gc_head));
 	game_loop(&game);
 	return (0);
 }
