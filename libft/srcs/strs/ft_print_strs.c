@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	print_strs(char **strs)
+void	ft_print_strs(char **strs)
 {
 	int	i;
 

@@ -5,6 +5,8 @@
 # define OPEN 2
 # define BAD_COLOR 3
 # define BAD_IMAGE 4
+# define LINE 5
+# define MAP 6
 
 # define W_WIDTH 1280
 # define W_HEIGHT 720

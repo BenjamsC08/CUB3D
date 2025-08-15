@@ -50,14 +50,15 @@ int main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	if (argc != 2)
-		return (not_a_good_file(0));
+		return (not_a_good_file(0), 1);
 	if (!init_base(&game))
 		return (1);
 	if (!good_file_ext(argv[1]))
-		return (close_all(&game), not_a_good_file(EXT));
+		return (close_all(&game), 1);
 	if (!load_cub_file(&game, argv[1]))
 		return (close_all(&game));
 	// game_loop(&game);
+	ft_print_strs(game.data_desc->map);
 	close_all(&game);
 	return (0);
 }

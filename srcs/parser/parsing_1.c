@@ -25,7 +25,11 @@ int	not_a_good_file(int k)
 		ft_dprintf(2, "Bad color in descriptor format accepted 'RRR,GGG,BBB' in decimal\n");
 	if (k == BAD_IMAGE)
 		ft_dprintf(2, "Cannot open image path in descriptor. Check if file exists.\n");
-	return (1);
+	if (k == LINE)
+		ft_dprintf(2, "Something wrong with your descriptor before the map.\n");
+	if (k == MAP)
+		ft_dprintf(2, "Something wrong with your descriptor in the map.\n");
+	return (0);
 }
 
 int	good_file_ext(char *str)
@@ -36,7 +40,7 @@ int	good_file_ext(char *str)
 			return (1);
 		str++;
 	}
-	return (0);
+	return (not_a_good_file(EXT));
 }
 
 int	try_to_open_image(t_game *game, char *path_img)
@@ -58,7 +62,7 @@ char	*extract_path_texture(t_game *game, char *line)
 {
 	char *str;
 
-	str = ft_remove_charset(line, "\n");
+	str = ft_gc_addnode(game->gc_head, ft_remove_charset(line, "\n"));
 	if (!str)
 		return (NULL);
 	str += 3;
@@ -124,7 +128,7 @@ int extract_color(t_game *game, char *line)
 		return (free_strs(strs), 0);
 	if (!convert_colors(strs, game, c))
 		return (free_strs(strs), 0);
-	return (1);
+	return (free_strs(strs), 1);
 }
 
 int	check_line(char *line, t_game *game)
@@ -134,51 +138,63 @@ int	check_line(char *line, t_game *game)
 	temp = NULL;
 	if (ft_strncmp(line,"NO ", 3) && ft_strncmp(line,"SO ", 3) && ft_strncmp(line,"WE ", 3) && ft_strncmp(line,"EA ", 3)
 		&& ft_strncmp(line,"F ", 2) && ft_strncmp(line,"C ", 2))
-		return (not_a_good_file(OPEN), 0);
+		return (not_a_good_file(OPEN));
 	else if (!ft_strncmp(line,"F ", 2) || !ft_strncmp(line,"C ", 2))
 	{
 		if (!extract_color(game, line))
-			return (not_a_good_file(BAD_COLOR), 0);
+			return (not_a_good_file(BAD_COLOR));
 	}
 	else
 	{
 		temp = extract_path_texture(game, line);
 		if (!temp)
-			return (not_a_good_file(BAD_IMAGE), 0);
+			return (not_a_good_file(BAD_IMAGE));
 		if (!ft_strncmp(line,"NO ", 3))
-			game->data_desc->path_no = ft_gc_addnode(game->gc_head, temp);
+			game->data_desc->path_no = ft_gc_addnode(game->gc_head, ft_strdup(temp));
 		if (!ft_strncmp(line,"SO ", 3))
-			game->data_desc->path_so = ft_gc_addnode(game->gc_head, temp);
+			game->data_desc->path_so = ft_gc_addnode(game->gc_head, ft_strdup(temp));
 		if (!ft_strncmp(line,"WE ", 3))
-			game->data_desc->path_we = ft_gc_addnode(game->gc_head, temp);
+			game->data_desc->path_we = ft_gc_addnode(game->gc_head, ft_strdup(temp));
 		if (!ft_strncmp(line,"EA ", 3))
-			game->data_desc->path_ea = ft_gc_addnode(game->gc_head, temp);
+			game->data_desc->path_ea = ft_gc_addnode(game->gc_head, ft_strdup(temp));
 	}
+	return (1);
+}
+
+int error_map(char **map, int j, int i)
+{
+	ft_dprintf(2,"Something wrong in the map check this char `%c' in pos x:%d, y:%d\n", map[j][i], i, j);
+	free_strs(map);
 	return (1);
 }
 
 int	check_char(char **map, int j, int i)
 {
+	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
+		return (0);
+	else
+		return (1);
 	if (ft_iswhitespace(map[j][i]))
 	{
-		if ((map[j][i - 1] && map[j][i - 1] != '1')
-			|| (map[j][i + 1] && map[j][i + 1] != '1')
-			|| (map[j - 1][i] && map[j - 1][i] != '1')
-			|| (map[j + 1][i] && map[j + 1][i] != '1'))
+		if ((map[j][i - 0] && map[j][i - 1] != '1')
+			|| (map[j][i + 0] && map[j][i + 1] != '1')
+			|| (map[j - 0][i] && map[j - 1][i] != '1')
+			|| (map[j + 0][i] && map[j + 1][i] != '1'))
 			return (0);
 	}
-	else if (map[j][i] == '0' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWED"))
+	else if (map[j][i] == '1' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWED"))
 	{
-		if ((!map[j][i - 1] || ft_iswhitespace(map[j][i - 1]))
-			|| (!map[j][i + 1] || ft_iswhitespace(map[j][i + 1]))
-			|| (!map[j - 1][i] || ft_iswhitespace(map[j - 1][i]))
-			|| (!map[j + 1][i] || ft_iswhitespace(map[j + 1][i])))
+		if ((!map[j][i - 0] || ft_iswhitespace(map[j][i - 1]))
+			|| (!map[j][i + 0] || ft_iswhitespace(map[j][i + 1]))
+			|| (!map[j - 0][i] || ft_iswhitespace(map[j - 1][i]))
+			|| (!map[j + 0][i] || ft_iswhitespace(map[j + 1][i])))
 			return (0);
 	}
-	else if (map[j][i] != '1')
+	else if (map[j][i] != '0')
 		return (0);
 	return (1);
 }
+
 
 int check_map(t_game *game)
 {
@@ -186,19 +202,20 @@ int check_map(t_game *game)
 	int	j;
 	char **map;
 
-	j = -1;
-	map = game->data_desc->map;
+	j = 0;
+	map = ft_strsdup(game->data_desc->map);
 	while (map[j])
 	{
-		i = -1;
-		while (map[j][i])
+		i = 0;
+		while (map[j][i] && map[j][i] != '\n')
 		{
 			if (!check_char(map, j, i))
-				return (0);
+				return (error_map(map,j, i));
 			i++;
 		}
 		j++;
 	}
+	free_strs(map);
 	return (1);
 }
 
@@ -210,7 +227,7 @@ int extract_map(t_game *game, int fd)
 	line = get_next_line(fd);
 	if (!line)
 		return (0);
-	while (line && ft_strcmp(line, "\n"))
+	while (line && !ft_strcmp(line, "\n"))
 	{
 		free(line);
 		line = get_next_line(fd);
@@ -220,16 +237,16 @@ int extract_map(t_game *game, int fd)
 	map = ft_calloc(2, sizeof(char *));
 	if (!map)
 		return (0);
-	*map = ft_gc_addnode(game->gc_head, ft_strdup(line));
-	if (!*map)
-		return (0);
 	while (line)
 	{
-		if (ft_strcmp(line, "\n"))
-			return (free_strs(map), free(line), 0);
-		map = ft_strsfadd(map, line);
+		if (!ft_strcmp(line, "\n"))
+			return (write(1,"d",1), free_strs(map), free(line), 0);
+		if (!*map)
+			*map = ft_strdup(line);
+		else
+			map = ft_strsfadd(map, line);
 		if (!map)
-			return (free(line), 0);
+			return (write(1,"e",1), free(line), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -244,26 +261,24 @@ int	check_file(t_game *game, int fd)
 
 	line = get_next_line(fd);
 	if (!line)
-		return (OPEN);
+		return (not_a_good_file(OPEN));
 	while (line)
 	{
 		if (ft_strcmp(line, "\n"))
 		{
-			if (!check_line(line, game))
-			{
-				ft_dprintf(2, "%sHERE%s\n", RED, RESET);
-				return (free(line), 0);
-			}
-			i++;
+			if (check_line(line, game))
+				i++;
+			else
+				return (free(line), not_a_good_file(LINE));
 		}
 		free(line);
-		if (i >= 5)
+		if (i > 5)
 		{
 			if (!extract_map(game, fd))
-				return (0);
+				return (not_a_good_file(MAP));
+			break ;
 		}
-		else
-			line = get_next_line(fd);
+		line = get_next_line(fd);
 	}
 	return (1);
 }
@@ -276,7 +291,7 @@ int load_cub_file(t_game *game, char *str)
 	buffer = NULL;
 	fd = open(str, O_RDONLY);
 	if (fd < 0 || read(fd, buffer, 0) < 0)
-		return (not_a_good_file(OPEN), 0);
+		return (not_a_good_file(OPEN));
 	 if (!check_file(game, fd))
 		return (close(fd), 0);
 	close (fd);

@@ -98,7 +98,7 @@ char			*ft_unsplit_skip(char **strs, char c, int k);
 void			free_strs(char **strs);
 char			**ft_strsfadd(char **src, char *add);
 char			**ft_strsfjoin(char **s1, char **s2);
-void			print_strs(char **strs);
+void			ft_print_strs(char **strs);
 /*
  *			memory manip
  */
