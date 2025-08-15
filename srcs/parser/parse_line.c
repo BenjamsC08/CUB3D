@@ -60,6 +60,18 @@ static int extract_color(t_game *game, char *line)
 	return (free_strs(strs), 1);
 }
 
+static void  affiliate_path(t_game *game, char *line, char *str)
+{
+	if (!ft_strncmp(line,"NO ", 3))
+		game->data_desc->path_no = ft_gc_addnode(game->gc_head, ft_strdup(str));
+	if (!ft_strncmp(line,"SO ", 3))
+		game->data_desc->path_so = ft_gc_addnode(game->gc_head, ft_strdup(str));
+	if (!ft_strncmp(line,"WE ", 3))
+		game->data_desc->path_we = ft_gc_addnode(game->gc_head, ft_strdup(str));
+	if (!ft_strncmp(line,"EA ", 3))
+		game->data_desc->path_ea = ft_gc_addnode(game->gc_head, ft_strdup(str));
+}
+
 int	check_line(char *line, t_game *game)
 {
 	char *temp;
@@ -79,14 +91,7 @@ int	check_line(char *line, t_game *game)
 		temp = extract_path_texture(game, line);
 		if (!temp)
 			return (not_a_good_file(BAD_IMAGE));
-		if (!ft_strncmp(line,"NO ", 3))
-			game->data_desc->path_no = ft_gc_addnode(game->gc_head, ft_strdup(temp));
-		if (!ft_strncmp(line,"SO ", 3))
-			game->data_desc->path_so = ft_gc_addnode(game->gc_head, ft_strdup(temp));
-		if (!ft_strncmp(line,"WE ", 3))
-			game->data_desc->path_we = ft_gc_addnode(game->gc_head, ft_strdup(temp));
-		if (!ft_strncmp(line,"EA ", 3))
-			game->data_desc->path_ea = ft_gc_addnode(game->gc_head, ft_strdup(temp));
+		affiliate_path(game, line, temp);
 	}
 	return (1);
 }

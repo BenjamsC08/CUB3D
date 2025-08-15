@@ -1,12 +1,19 @@
 #include "cub3d.h"
 
+static int	prealable_check(t_game *game, char c)
+{
+	if (!ft_ischarset(c, "NSWE012 "))
+		return (0);
+	if (ft_ischarset(c, "NSWE") && !game->data_desc->pos)
+		game->data_desc->pos = c;
+	else if (ft_ischarset(c, "NSWE") && game->data_desc->pos)
+		return (0);
+	return (1);
+}
+
 static int	check_char(t_game *game, char **map, int j, int i)
 {
-	if (!ft_ischarset(map[j][i], "NSWE012 "))
-		return (0);
-	if (ft_ischarset(map[j][i], "NSWE") && !game->data_desc->pos)
-		game->data_desc->pos = map[j][i];
-	else if (ft_ischarset(map[j][i], "NSWE") && game->data_desc->pos)
+	if (!prealable_check(game, map[j][i]))
 		return (0);
 	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
 		return (1);
@@ -56,6 +63,27 @@ static int check_map(t_game *game)
 	return (1);
 }
 
+static int	extract_loop(char ***ptr_map, char *line)
+{
+	char **map;
+
+	map = *ptr_map;
+	if (!ft_strcmp(line, "\n"))
+		return (free_strs(map), free(line), 0);
+	if (!*map)
+	{
+		*map = ft_strdup(line);
+		if (!*map)
+			return (free(map), 0);
+	}
+	else
+		map = ft_strsfadd(map, line);
+	if (!map)
+		return (free(line), 0);
+	*ptr_map = map;
+	return (1);
+}
+
 int extract_map(t_game *game, int fd)
 {
 	char *line;
@@ -76,18 +104,8 @@ int extract_map(t_game *game, int fd)
 		return (0);
 	while (line)
 	{
-		if (!ft_strcmp(line, "\n"))
-			return (free_strs(map), free(line), 0);
-		if (!*map)
-		{
-			*map = ft_strdup(line);
-			if (!*map)
-				return (free(map), 0);
-		}
-		else
-			map = ft_strsfadd(map, line);
-		if (!map)
-			return (free(line), 0);
+		if (!extract_loop(&map, line))
+			return (0);
 		free(line);
 		line = get_next_line(fd);
 	}
