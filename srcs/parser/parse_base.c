@@ -52,7 +52,7 @@ static int	check_file(t_game *game, int fd)
 			if (check_line(line, game))
 				i++;
 			else
-				return (free(line), not_a_good_file(LINE));
+				return (free(line));
 		}
 		free(line);
 		if (i > 5)
