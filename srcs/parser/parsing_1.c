@@ -170,6 +170,8 @@ int error_map(char **map, int j, int i)
 
 int	check_char(char **map, int j, int i)
 {
+	if (!ft_ischarset(map[j][i], "NSWED01 "))
+		return (0);
 	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
 		return (0);
 	else
@@ -190,8 +192,6 @@ int	check_char(char **map, int j, int i)
 			|| (!map[j + 0][i] || ft_iswhitespace(map[j + 1][i])))
 			return (0);
 	}
-	else if (map[j][i] != '0')
-		return (0);
 	return (1);
 }
 
