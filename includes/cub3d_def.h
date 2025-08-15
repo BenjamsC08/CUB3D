@@ -26,7 +26,7 @@ typedef struct s_data_desc
 	char	*path_we;
 	char	*path_ea;
 	t_byte	floor_color;
-	t_byte	celing_color;
+	t_byte	ceiling_color;
 	char	**map;
 }			t_data_desc;
 

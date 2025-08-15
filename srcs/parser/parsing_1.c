@@ -39,13 +39,15 @@ int	try_to_open_image(t_game *game, char *path_img)
 {
 	int x;
 	int y;
+	void *ptr;
 
 	x = W_WIDTH;
 	x = W_HEIGHT;
 	ptr = mlx_xpm_file_to_image(game->mlx, path_img, &y, &x);
 	if (!ptr)
-		return (free_tabtab(list), 0);
+		return (0);
 	mlx_destroy_image(game->mlx, ptr);
+	return (1);
 }
 
 char	*extract_path_texture(t_game *game, char *line)
@@ -84,7 +86,7 @@ int convert_colors(char **strs, t_game *game, char c)
 	if (c == 1)
 		game->data_desc->floor_color = color;
 	else
-		game->data_desc->celling_color = color;
+		game->data_desc->ceiling_color = color;
 	return (1);
 }
 
@@ -93,7 +95,7 @@ int extract_color(t_game *game, char *line)
 	char **strs;
 	char c;
 
-	if (!ftstrncmp(line,"F ", 2))
+	if (!ft_strncmp(line,"F ", 2))
 		c = 1;
 	else
 		c = 2;
@@ -104,7 +106,7 @@ int extract_color(t_game *game, char *line)
 		line++;
 	if (!line)
 		return (0);
-	strs = ft_split(line, ",");
+	strs = ft_split(line, ',');
 	if (!strs)
 		return (0);
 	if (ft_strslen(strs) != 3)
@@ -122,9 +124,11 @@ int	check_line(char *line, t_game *game)
 	if (ft_strncmp(line,"NO ", 3) && ft_strncmp(line,"SO ", 3) && ft_strncmp(line,"WE ", 3) && ft_strncmp(line,"EA ", 3)
 		&& ft_strncmp(line,"F ", 2) && ft_strncmp(line,"C ", 2))
 		return (not_a_good_file(OPEN), 0);
-	if (!ft_strncmp(line,"F ", 2) || !ft_strncmp(line,"C ", 2))
+	else if (!ft_strncmp(line,"F ", 2) || !ft_strncmp(line,"C ", 2))
+	{
 		if (!extract_color(game, line))
 			return (not_a_good_file(BAD_COLOR), 0);
+	}
 	else
 	{
 		temp = extract_path_texture(game, line);
@@ -179,9 +183,12 @@ int check_map(t_game *game)
 		while (map[j][i])
 		{
 			if (!check_char(map, j, i))
-				return 0;
+				return (0);
+			i++;
 		}
+		j++;
 	}
+	return (1);
 }
 
 int extract_map(t_game *game, int fd)
@@ -244,7 +251,6 @@ int	check_file(t_game *game, int fd)
 int load_cub_file(t_game *game, char *str)
 {
 	int		fd;
-	int		k;
 	char	*buffer;
 
 	buffer = NULL;

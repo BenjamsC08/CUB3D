@@ -1,4 +1,4 @@
-*/*.o
+*.o
 CUB3D
 machin*
 truc*
