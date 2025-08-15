@@ -49,8 +49,8 @@ int	try_to_open_image(t_game *game, char *path_img)
 	int y;
 	void *ptr;
 
-	x = 32;
-	x = 32;
+	x = W_WIDTH;
+	x = W_HEIGHT;
 	ptr = mlx_xpm_file_to_image(game->mlx, path_img, &y, &x);
 	if (!ptr)
 		return (0);
@@ -68,12 +68,10 @@ char	*extract_path_texture(t_game *game, char *line)
 	str += 3;
 	if (!str)
 		return (NULL);
-	ft_dprintf(2, "1:%s%s%s\n", BLUE, str, RESET);
 	while (*line && ft_iswhitespace(*str))
 		str++;
 	if (!str)
 		return (NULL);
-	ft_dprintf(2, "2:%s%s%s\n", BLUE, str, RESET);
 	if (!try_to_open_image(game, str))
 		return (NULL);
 	return (str);
@@ -136,7 +134,8 @@ int	check_line(char *line, t_game *game)
 	char *temp;
 
 	temp = NULL;
-	if (ft_strncmp(line,"NO ", 3) && ft_strncmp(line,"SO ", 3) && ft_strncmp(line,"WE ", 3) && ft_strncmp(line,"EA ", 3)
+	if (ft_strncmp(line,"NO ", 3) && ft_strncmp(line,"SO ", 3) 
+		&& ft_strncmp(line,"WE ", 3) && ft_strncmp(line,"EA ", 3)
 		&& ft_strncmp(line,"F ", 2) && ft_strncmp(line,"C ", 2))
 		return (not_a_good_file(OPEN));
 	else if (!ft_strncmp(line,"F ", 2) || !ft_strncmp(line,"C ", 2))
@@ -163,17 +162,22 @@ int	check_line(char *line, t_game *game)
 
 int error_map(char **map, int j, int i)
 {
+	ft_dprintf(2,"Error\n");
 	ft_dprintf(2,"Something wrong in the map check this char `%c' in pos x:%d, y:%d\n", map[j][i], i, j);
 	free_strs(map);
-	return (1);
+	return (0);
 }
 
-int	check_char(char **map, int j, int i)
+int	check_char(t_game *game, char **map, int j, int i)
 {
-	if (!ft_ischarset(map[j][i], "NSWED01 "))
+	if (!ft_ischarset(map[j][i], "NSWE012 "))
+		return (0);
+	if (ft_ischarset(map[j][i], "NSWE") && !game->data_desc->pos)
+		game->data_desc->pos = map[j][i];
+	else if (ft_ischarset(map[j][i], "NSWE") && game->data_desc->pos)
 		return (0);
 	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
-		return (0);
+		return (1);
 	else
 		return (1);
 	if (ft_iswhitespace(map[j][i]))
@@ -184,7 +188,7 @@ int	check_char(char **map, int j, int i)
 			|| (map[j + 0][i] && map[j + 1][i] != '1'))
 			return (0);
 	}
-	else if (map[j][i] == '1' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWED"))
+	else if (map[j][i] == '1' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWE"))
 	{
 		if ((!map[j][i - 0] || ft_iswhitespace(map[j][i - 1]))
 			|| (!map[j][i + 0] || ft_iswhitespace(map[j][i + 1]))
@@ -194,7 +198,6 @@ int	check_char(char **map, int j, int i)
 	}
 	return (1);
 }
-
 
 int check_map(t_game *game)
 {
@@ -211,7 +214,7 @@ int check_map(t_game *game)
 		i = 0;
 		while (map[j][i] && map[j][i] != '\n')
 		{
-			if (!check_char(map, j, i))
+			if (!check_char(game, map, j, i))
 				return (error_map(map,j, i));
 			i++;
 		}
@@ -242,7 +245,7 @@ int extract_map(t_game *game, int fd)
 	while (line)
 	{
 		if (!ft_strcmp(line, "\n"))
-			return (write(1,"d",1), free_strs(map), free(line), 0);
+			return (free_strs(map), free(line), 0);
 		if (!*map)
 		{
 			*map = ft_strdup(line);
@@ -252,7 +255,7 @@ int extract_map(t_game *game, int fd)
 		else
 			map = ft_strsfadd(map, line);
 		if (!map)
-			return (write(1,"e",1), free(line), 0);
+			return (free(line), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -270,7 +273,7 @@ int	check_file(t_game *game, int fd)
 		return (not_a_good_file(OPEN));
 	while (line)
 	{
-		if (ft_strcmp(line, "\n"))
+		if (ft_strncmp(line, "\n", 1))
 		{
 			if (check_line(line, game))
 				i++;
@@ -281,7 +284,7 @@ int	check_file(t_game *game, int fd)
 		if (i > 5)
 		{
 			if (!extract_map(game, fd))
-				return (not_a_good_file(MAP));
+				return (0);
 			break ;
 		}
 		line = get_next_line(fd);

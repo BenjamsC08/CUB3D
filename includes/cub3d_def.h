@@ -30,6 +30,7 @@ typedef struct s_data_desc
 	t_byte	floor_color;
 	t_byte	ceiling_color;
 	char	**map;
+	char	pos;
 }			t_data_desc;
 
 typedef struct s_game

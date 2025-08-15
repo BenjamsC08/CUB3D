@@ -21,7 +21,6 @@ int	init_base(t_game *game)
 
 int  close_all(t_game *game)
 {
-	ft_dprintf(2, "%sLALALALALLA%s\n", RED, RESET);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
