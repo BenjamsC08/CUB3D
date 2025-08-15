@@ -217,6 +217,12 @@ int extract_map(t_game *game, int fd)
 	}
 	if (!line)
 		return (0);
+	map = ft_calloc(2, sizeof(char *));
+	if (!map)
+		return (0);
+	*map = ft_gc_addnode(game->gc_head, ft_strdup(line));
+	if (!*map)
+		return (0);
 	while (line)
 	{
 		if (ft_strcmp(line, "\n"))
