@@ -24,7 +24,7 @@ int  close_all(t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
-	exit (0);
+	return (1);
 }
 
 static int	key_hook(int keycode, t_game *game)
@@ -55,8 +55,9 @@ int main(int argc, char **argv)
 		return (1);
 	if (!good_file_ext(argv[1]))
 		return (close_all(&game), not_a_good_file(EXT));
-	// if (!load_cub_file(&game, argv[1]))
-	// 	return (ft_clear_gc(game.gc_head));
-	game_loop(&game);
+	if (!load_cub_file(&game, argv[1]))
+		return (close_all(&game));
+	// game_loop(&game);
+	close_all(&game);
 	return (0);
 }

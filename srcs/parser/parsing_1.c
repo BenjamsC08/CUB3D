@@ -16,11 +16,15 @@ int	not_a_good_file(int k)
 {
 	ft_dprintf(2, "Error\n");
 	if (k == 0)
-		ft_dprintf(2, "incorrect number of arguments\n");
+		ft_dprintf(2, "Incorrect number of arguments\n");
 	if (k == EXT)
 		ft_dprintf(2, "Bad extension file\n");
 	if (k == OPEN)
-		ft_dprintf(2, "Error when trying to open/read descriptor\n");
+		ft_dprintf(2, "Cannot open/read descriptor\n");
+	if (k == BAD_COLOR)
+		ft_dprintf(2, "Bad color in descriptor format accepted 'RRR,GGG,BBB' in decimal\n");
+	if (k == BAD_IMAGE)
+		ft_dprintf(2, "Cannot open image path in descriptor. Check if file exists.\n");
 	return (1);
 }
 
@@ -41,8 +45,8 @@ int	try_to_open_image(t_game *game, char *path_img)
 	int y;
 	void *ptr;
 
-	x = W_WIDTH;
-	x = W_HEIGHT;
+	x = 32;
+	x = 32;
 	ptr = mlx_xpm_file_to_image(game->mlx, path_img, &y, &x);
 	if (!ptr)
 		return (0);
@@ -52,16 +56,23 @@ int	try_to_open_image(t_game *game, char *path_img)
 
 char	*extract_path_texture(t_game *game, char *line)
 {
-	line += 3;
-	if (!line)
+	char *str;
+
+	str = ft_remove_charset(line, "\n");
+	if (!str)
 		return (NULL);
-	while (*line && ft_iswhitespace(*line))
-		line++;
-	if (!line)
+	str += 3;
+	if (!str)
 		return (NULL);
-	if (!try_to_open_image(game, line))
+	ft_dprintf(2, "1:%s%s%s\n", BLUE, str, RESET);
+	while (*line && ft_iswhitespace(*str))
+		str++;
+	if (!str)
 		return (NULL);
-	return (line);
+	ft_dprintf(2, "2:%s%s%s\n", BLUE, str, RESET);
+	if (!try_to_open_image(game, str))
+		return (NULL);
+	return (str);
 }
 
 int convert_colors(char **strs, t_game *game, char c)
@@ -118,7 +129,7 @@ int extract_color(t_game *game, char *line)
 
 int	check_line(char *line, t_game *game)
 {
-	char	*temp;
+	char *temp;
 
 	temp = NULL;
 	if (ft_strncmp(line,"NO ", 3) && ft_strncmp(line,"SO ", 3) && ft_strncmp(line,"WE ", 3) && ft_strncmp(line,"EA ", 3)
@@ -135,15 +146,15 @@ int	check_line(char *line, t_game *game)
 		if (!temp)
 			return (not_a_good_file(BAD_IMAGE), 0);
 		if (!ft_strncmp(line,"NO ", 3))
-			game->data_desc->path_no = ft_gc_addnode(game->gc_head, ft_strdup(temp));
+			game->data_desc->path_no = ft_gc_addnode(game->gc_head, temp);
 		if (!ft_strncmp(line,"SO ", 3))
-			game->data_desc->path_so = ft_gc_addnode(game->gc_head, ft_strdup(temp));
+			game->data_desc->path_so = ft_gc_addnode(game->gc_head, temp);
 		if (!ft_strncmp(line,"WE ", 3))
-			game->data_desc->path_we = ft_gc_addnode(game->gc_head, ft_strdup(temp));
+			game->data_desc->path_we = ft_gc_addnode(game->gc_head, temp);
 		if (!ft_strncmp(line,"EA ", 3))
-			game->data_desc->path_ea = ft_gc_addnode(game->gc_head, ft_strdup(temp));
+			game->data_desc->path_ea = ft_gc_addnode(game->gc_head, temp);
 	}
-	return (0);
+	return (1);
 }
 
 int	check_char(char **map, int j, int i)
@@ -233,7 +244,10 @@ int	check_file(t_game *game, int fd)
 		if (ft_strcmp(line, "\n"))
 		{
 			if (!check_line(line, game))
-				return (0);
+			{
+				ft_dprintf(2, "%sHERE%s\n", RED, RESET);
+				return (free(line), 0);
+			}
 			i++;
 		}
 		free(line);
