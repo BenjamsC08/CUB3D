@@ -42,7 +42,7 @@ int				ft_iswhitespace(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 int				ft_ishex(char c);
-int				ft_ischarset(char c, char *charset);
+int				ft_ischarset(char c, const char *charset);
 /*
  *			string verification
  */

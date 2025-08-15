@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_ischarset(char c, char *charset)
+int	ft_ischarset(char c, const char *charset)
 {
 	while (*charset)
 	{

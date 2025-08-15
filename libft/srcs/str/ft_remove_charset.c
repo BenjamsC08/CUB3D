@@ -13,19 +13,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-int	is_in_charset(char c, const char *charset)
-{
-	char	*cs;
-
-	cs = (char *)charset - 1;
-	while (*(++cs))
-	{
-		if (*cs == c)
-			return (1);
-	}
-	return (0);
-}
-
 char	*ft_remove_charset(char *str, const char *charset)
 {
 	char	*dest;
@@ -37,7 +24,7 @@ char	*ft_remove_charset(char *str, const char *charset)
 	d = dest;
 	while (*str)
 	{
-		if (!is_in_charset(*str, charset))
+		if (!ft_ischarset(*str, charset))
 			*(d++) = *str;
 		str++;
 	}
