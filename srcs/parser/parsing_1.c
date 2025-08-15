@@ -142,9 +142,46 @@ int	check_line(char *line, t_game *game)
 	return (0);
 }
 
+int	check_char(char **map, int j, int i)
+{
+	if (ft_iswhitespace(map[j][i]))
+	{
+		if ((map[j][i - 1] && map[j][i - 1] != '1')
+			|| (map[j][i + 1] && map[j][i + 1] != '1')
+			|| (map[j - 1][i] && map[j - 1][i] != '1')
+			|| (map[j + 1][i] && map[j + 1][i] != '1'))
+			return (0);
+	}
+	else if (map[j][i] == '0' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWED"))
+	{
+		if ((!map[j][i - 1] || ft_iswhitespace(map[j][i - 1]))
+			|| (!map[j][i + 1] || ft_iswhitespace(map[j][i + 1]))
+			|| (!map[j - 1][i] || ft_iswhitespace(map[j - 1][i]))
+			|| (!map[j + 1][i] || ft_iswhitespace(map[j + 1][i])))
+			return (0);
+	}
+	else if (map[j][i] != '1')
+		return (0);
+	return (1);
+}
+
 int check_map(t_game *game)
 {
-	
+	int	i;
+	int	j;
+	char **map;
+
+	j = -1;
+	map = game->data_desc->map;
+	while (map[j])
+	{
+		i = -1;
+		while (map[j][i])
+		{
+			if (!check_char(map, j, i))
+				return 0;
+		}
+	}
 }
 
 int extract_map(t_game *game, int fd)
