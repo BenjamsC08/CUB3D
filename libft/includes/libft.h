@@ -196,5 +196,6 @@ t_gc	*init_gc();
 void	*ft_gcalloc(t_gc **head, t_uint size);
 void	*ft_gc_addnode(t_dlist **head, void *ptr);
 void	ft_clear_gc(t_gc **head);
+char	**ft_add_strs_gc(t_gc **head, char **strs);
 
 #endif

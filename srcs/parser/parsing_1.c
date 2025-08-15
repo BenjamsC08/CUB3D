@@ -203,6 +203,8 @@ int check_map(t_game *game)
 	char **map;
 
 	j = 0;
+	if (!game->data_desc->map || !*game->data_desc->map)
+		return (0);
 	map = ft_strsdup(game->data_desc->map);
 	while (map[j])
 	{
@@ -242,7 +244,11 @@ int extract_map(t_game *game, int fd)
 		if (!ft_strcmp(line, "\n"))
 			return (write(1,"d",1), free_strs(map), free(line), 0);
 		if (!*map)
+		{
 			*map = ft_strdup(line);
+			if (!*map)
+				return (free(map), 0);
+		}
 		else
 			map = ft_strsfadd(map, line);
 		if (!map)
@@ -250,7 +256,7 @@ int extract_map(t_game *game, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	game->data_desc->map = ft_gc_addnode(game->gc_head, map);
+	game->data_desc->map = ft_add_strs_gc(game->gc_head, map);
 	return (check_map(game));
 }
 

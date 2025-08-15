@@ -21,6 +21,7 @@ int	init_base(t_game *game)
 
 int  close_all(t_game *game)
 {
+	ft_dprintf(2, "%sLALALALALLA%s\n", RED, RESET);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
 	if (!load_cub_file(&game, argv[1]))
 		return (close_all(&game));
 	// game_loop(&game);
-	ft_print_strs(game.data_desc->map);
+	// ft_print_strs(game.data_desc->map);
 	close_all(&game);
 	return (0);
 }

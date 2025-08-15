@@ -21,7 +21,7 @@ char	**ft_strsfadd(char **src, char *add)
 
 	new = (char **)ft_calloc((ft_strslen(src) + 2), sizeof(char *));
 	if (!new)
-		return (NULL);
+		return (free_strs(src), NULL);
 	out = new;
 	src1 = src;
 	add1 = add;
@@ -29,13 +29,13 @@ char	**ft_strsfadd(char **src, char *add)
 	{
 		*new = ft_strdup(*src1++);
 		if (!*new)
-			return (free_strs(out), NULL);
+			return (free_strs(out), free_strs(src), NULL);
 		new ++;
 	}
 	if (add1)
 		*new = ft_strdup(add1);
 	if (!*new)
-		return (free_strs(out), NULL);
+		return (free_strs(out), free_strs(src), NULL);
 	return (free_strs(src), out);
 }
 

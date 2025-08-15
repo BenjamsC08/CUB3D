@@ -45,6 +45,22 @@ void	ft_clear_gc(t_gc **head)
 	ft_dlstclear(head, &free);
 }
 
+char	**ft_add_strs_gc(t_gc **head, char **strs)
+{
+	char **ptr_strs;
+
+	if (!strs)
+		return (NULL);
+	ptr_strs = strs;
+	while (*strs)
+	{
+		ft_gc_addnode(head, *strs);
+		strs++;
+	}
+	ft_gc_addnode(head, ptr_strs);
+	return (ptr_strs);
+}
+
 // Example utilisation
 /*int main()*/
 /*{*/
