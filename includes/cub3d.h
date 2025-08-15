@@ -18,8 +18,16 @@ t_byte	get_b(int trgb);
 /*
 *		  Parsing
 */
-int		not_a_good_file(int k);
+//base
 int		good_file_ext(char *str);
+int		convert_colors(char **strs, t_game *game, char c);
 int		load_cub_file(t_game *game, char *str);
+//error
+int		not_a_good_file(int k);
+int		error_map(char **map, int j, int i);
+//line
+int	check_line(char *line, t_game *game);
+//map
+int extract_map(t_game *game, int fd);
 
 #endif

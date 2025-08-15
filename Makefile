@@ -1,7 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
 NAME = CUB3D
-SRCS = srcs/main.c srcs/parser/parsing_1.c
+SRCS = srcs/utils/colors.c srcs/parser/parse_error.c srcs/parser/parse_base.c srcs/parser/parse_line.c srcs/parser/parse_map.c srcs/main.c
 OBJ = $(SRCS:.c=.o)
 LIB_PATH = -Lmlx_linux -Llibft -L/usr/lib
 LIB_NAME = -lmlx_Linux -lft -lXext -lX11 -lm -lz
