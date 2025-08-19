@@ -62,25 +62,24 @@ char	**ft_add_strs_gc(t_gc **head, char **strs)
 }
 
 // Example utilisation
-/*int main()*/
-/*{*/
-/*    t_gc *head_gc;*/
-/*    char *str;*/
-/*    char *str1;*/
-/*    int *int_ptr;*/
-/**/
-/*    head_gc = init_gc();*/
-/*    str = ft_gcalloc(&head_gc, sizeof(char *));*/
-/*    if (!str)*/
-/*        return (ft_clear_gc(&head_gc), 1);*/
-/*    str = "blaoblao";*/
-/*    str1 = ft_gc_addnode(&head_gc, ft_strdup("lololololo"));*/
-/*    if (!str1)*/
-/*        return (ft_clear_gc(&head_gc), 1);*/
-/*    int_ptr = ft_gc_addnode(&head_gc, malloc(sizeof(int)));*/
-/*    if (!int_ptr)*/
-/*        return (ft_clear_gc(&head_gc), 1);*/
-/*    *int_ptr = 42;*/
-/*    ft_clear_gc(&head_gc);*/
-/*    return (0);*/
-/*}*/
+// int main()
+// {
+//     t_gc *head_gc;
+//     char *str;
+//     char *str1;
+//     int *int_ptr;
+//     head_gc = init_gc();
+//     str = ft_gcalloc(&head_gc, sizeof(char *));
+//     if (!str)
+//         return (ft_clear_gc(&head_gc), 1);
+//     str = "blaoblao";
+// 	str1 = ft_gc_addnode(&head_gc, ft_strdup("lololololo"));
+//     if (!str1)
+//         return (ft_clear_gc(&head_gc), 1);
+//     int_ptr = ft_gc_addnode(&head_gc, malloc(sizeof(int)));
+//     if (!int_ptr)*/
+//         return (ft_clear_gc(&head_gc), 1);
+//     *int_ptr = 42;
+//     ft_clear_gc(&head_gc);
+//     return (0);
+// }
