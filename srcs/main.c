@@ -16,6 +16,9 @@ int	init_base(t_game *game)
 	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
 	if (!game->data_desc)
 		return (ft_clear_gc(game->gc_head), 0);
+	game->perso = ft_gcalloc(game->gc_head, sizeof(t_player));
+	if (!game->perso)
+		return (ft_clear_gc(game->gc_head), 0);
 	return (1);
 }
 

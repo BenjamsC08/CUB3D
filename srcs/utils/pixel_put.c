@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void	ft_pixel_put(t_data_img data_img, char **addr, int pos[2], int color)
 =======
 void	ft_clear_background(t_game *game, int color)
@@ -24,6 +25,9 @@ void	ft_clear_background(t_game *game, int color)
 
 void	ft_pixel_put(t_data_img data_img, char **addr, int pos[], int color)
 >>>>>>> f1f8776 (not finished draw rectangle)
+=======
+void	ft_pixel_put(t_data_img data_img, char **addr, int pos[2], int color)
+>>>>>>> 260c476 (????)
 {
 	char	*dst;
 

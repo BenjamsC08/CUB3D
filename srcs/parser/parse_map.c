@@ -1,19 +1,22 @@
 #include "cub3d.h"
 
-static int	prealable_check(t_game *game, char c)
+static int	prealable_check(t_game *game, char c, int y, int x)
 {
 	if (!ft_ischarset(c, "NSWE012 "))
 		return (0);
-	if (ft_ischarset(c, "NSWE") && !game->data_desc->pos)
-		game->data_desc->pos = c;
-	else if (ft_ischarset(c, "NSWE") && game->data_desc->pos)
+	if (ft_ischarset(c, "NSWE") && !game->perso->y)
+	{
+		game->perso->y = (float)y;
+		game->perso->x = (float)x;
+	}
+	else if (ft_ischarset(c, "NSWE") && game->perso->y)
 		return (0);
 	return (1);
 }
 
 static int	check_char(t_game *game, char **map, int j, int i)
 {
-	if (!prealable_check(game, map[j][i]))
+	if (!prealable_check(game, map[j][i], j, i))
 		return (0);
 	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
 		return (1);
@@ -60,6 +63,8 @@ static int check_map(t_game *game)
 		j++;
 	}
 	free_strs(map);
+	if (!game->perso->y && !game->perso->x)
+		return (not_a_good_file(MAP));
 	return (1);
 }
 

@@ -16,7 +16,7 @@ int	not_a_good_file(int k)
 	if (k == LINE)
 		ft_dprintf(2, "Something wrong with your descriptor before the map.\n");
 	if (k == MAP)
-		ft_dprintf(2, "Something wrong with your descriptor in the map.\n");
+		ft_dprintf(2, "Need to put a position for the player\n");
 	return (0);
 }
 

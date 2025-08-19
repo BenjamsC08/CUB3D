@@ -59,8 +59,13 @@ typedef struct s_data_desc
 	t_byte	floor_color;
 	t_byte	ceiling_color;
 	char	**map;
-	char	pos;
 }			t_data_desc;
+
+typedef struct s_player
+{
+	float x;
+	float y;
+}		  t_player;
 
 typedef struct s_game
 {
@@ -71,6 +76,7 @@ typedef struct s_game
 	t_data_desc	*data_desc;
 	t_minimap	*minimap;
 	t_data_img	data_img;
+	t_player	*perso;
 }				t_game;
 
 #endif
