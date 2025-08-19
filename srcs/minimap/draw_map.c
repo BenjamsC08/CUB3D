@@ -22,25 +22,25 @@
 // 	}
 // }
 
-void	draw_rectangle(t_game *game, char **ptr_addr, int *pos[2], int dimension[], int color)
-{
-	int i;
-	int j;
-
-	(void)color;
-	// addr = *ptr_addr;
-	j = -1;
-	while (++j < dimension[0])
-	{
-		i = -1;
-		while (++i < dimension[1])
-		{
-			ft_pixel_put(game->data_img, ptr_addr, pos, MLX_RED);
-		}
-	}
-	pos[0] = j;
-	pos[1] = i;
-}
+/*void	draw_rectangle(t_game *game, t_rect rect)*/
+/*{*/
+/*	int i;*/
+/*	int j;*/
+/**/
+/*	(void)color;*/
+/*	// addr = *ptr_addr;*/
+/*	j = -1;*/
+/*	while (++j < rect.h)*/
+/*	{*/
+/*		i = -1;*/
+/*		while (++i < rect.w)*/
+/*		{*/
+/*			ft_pixel_put(game->data_img, ptr_addr, pos, MLX_RED);*/
+/*		}*/
+/*	}*/
+/*	pos[0] = j;*/
+/*	pos[1] = i;*/
+/*}*/
 
 // void draw_wall(t_game *game, void **ptr_img, char **ptr_addr, int start_pos[])
 // {
@@ -56,21 +56,21 @@ static void	da_vinci(t_game *game, const int y, const int x)
 	int i;
 	int j;
 	int	p[2];
-	int d[2];
 
-	d[0] = 10;
-	d[1] = 10;
 	j = -1;
 	while (++j < y)
 	{
 		p[0] = j;
 		i = -1;
-		if (j == 10)
-			draw_rectangle(game, addr, p, d, MLX_RED);
 		while (++i < x)
 		{
 			p[1] = i;
+<<<<<<< HEAD
 			ft_pixel_put(game->data_img, &game->minimap->addr, p, MLX_GREY);
+=======
+			if ((j == 0 || i == 0) || ((j == y - 1) || i == (x - 1)))
+				ft_pixel_put(game->data_img, addr, p, MLX_GREY);
+>>>>>>> 6fcecee (add some file to return main)
 		}
 	}
 

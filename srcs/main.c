@@ -46,7 +46,7 @@ static int	key_hook(int keycode, t_game *game)
 			game->minimap->pos = game->minimap->b_pos;
 			game->minimap->scale = 1;
 		}
-		ft_clear_background(game, MLX_BLUE);
+		ft_clear_background(game, MLX_BLACK);
 		draw_map(game, game->minimap->pos, game->minimap->scale);
 	}
 	else
@@ -82,7 +82,7 @@ int	looping_hook(t_game *game)
 	fc++;
 	if (fc == 500000)
 	{
-		ft_clear_background(game, MLX_BLUE);
+		ft_clear_background(game, MLX_BLACK);
 		draw_map(game, game->minimap->pos, game->minimap->scale);
 		fc = 0;
 	}
