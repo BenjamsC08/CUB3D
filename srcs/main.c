@@ -16,6 +16,9 @@ int	init_base(t_game *game)
 	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
 	if (!game->data_desc)
 		return (ft_clear_gc(game->gc_head), 0);
+	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
+	if (!game->minimap)
+		return (ft_clear_gc(game->gc_head), 0);
 	game->perso = ft_gcalloc(game->gc_head, sizeof(t_player));
 	if (!game->perso)
 		return (ft_clear_gc(game->gc_head), 0);
@@ -24,7 +27,8 @@ int	init_base(t_game *game)
 
 int  close_all(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->minimap->img);
+	if (game->minimap->img)
+		mlx_destroy_image(game->mlx, game->minimap->img);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
