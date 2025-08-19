@@ -1,7 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
 NAME = CUB3D
-SRCS = srcs/utils/colors.c srcs/parser/parse_error.c srcs/parser/parse_base.c srcs/parser/parse_line.c srcs/parser/parse_map.c srcs/main.c
+SRCS = srcs/utils/colors.c srcs/utils/pixel_put.c srcs/minimap/draw_map.c srcs/parser/parse_base.c srcs/parser/parse_map.c srcs/parser/parse_error.c srcs/parser/parse_line.c srcs/main.c
 OBJ = $(SRCS:.c=.o)
 LIB_PATH = -Lmlx_linux -Llibft -L/usr/lib
 LIB_NAME = -lmlx_Linux -lft -lXext -lX11 -lm -lz
@@ -28,15 +28,15 @@ DL_MLX:
     fi
 
 MLX: DL_MLX
-	printf "$(VALID)⇩ Make MLX$(LOADING)";
+	@printf "$(VALID)⇩ Make MLX\n$(LOADING)";
 	@$(MAKE) -C mlx_linux > /dev/null 2>&1
 
 libft/libft.a:
-	printf "$(VALID)⇩ Make Libft$(LOADING)";
+	@printf "$(VALID)⇩ Make Libft\n$(LOADING)";
 	@$(MAKE) -C libft > /dev/null 2>&1
 
 %.o: %.c
-	@$(CC) $(FLAGS) $(INCLUDE_PATH) -O3 -c $< -o $@
+	$(CC) $(FLAGS) $(INCLUDE_PATH) -O3 -c $< -o $@
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIB_NAME) $(INCLUDE_PATH) -o $(NAME)
 

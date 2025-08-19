@@ -21,10 +21,11 @@ int	init_base(t_game *game)
 
 int  close_all(t_game *game)
 {
+	mlx_destroy_image(game->mlx, game->minimap->img);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
-	return (1);
+	exit (0);
 }
 
 static int	key_hook(int keycode, t_game *game)
@@ -36,6 +37,7 @@ static int	key_hook(int keycode, t_game *game)
 
 int game_loop(t_game *game)
 {
+	draw_map(game, 0, 1);
 	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
 	mlx_hook(game->win, 17, 1L << 0, close_all, game);
 	mlx_loop(game->mlx);
@@ -57,8 +59,9 @@ int main(int argc, char **argv)
 		return (close_all(&game), 1);
 	if (!load_cub_file(&game, argv[1]))
 		return (close_all(&game));
-	// game_loop(&game);
+	game_loop(&game);
 	// ft_print_strs(game.data_desc->map);
-	close_all(&game);
+	// close_all(&game);
+	// ft_printf("GREY %d\n", encode_rgb(150, 150 ,150));
 	return (0);
 }

@@ -16,7 +16,7 @@ $(NAME): $(OBJ)
 
 %.o: %.c $(INCLUDE)
 	@printf "\r$(LOADING) - libft: compilation \t\t🔃 "
-	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@ #> /dev/null 2>&1
+	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ_DIR)/$(OBJ)

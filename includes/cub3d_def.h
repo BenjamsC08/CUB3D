@@ -21,6 +21,35 @@
 # define S_KEY 115
 # define ESC 65307
 
+#	define TOP_RIGHT 0
+#	define TOP_LEFT 1
+#	define CENTER 2
+
+# define MLX_BLACK 0
+# define MLX_WHITE 16777215
+# define MLX_WHITE1 16119285
+# define MLX_RED 16711680
+# define MLX_GREEN 65280
+# define MLX_BLUE 255
+# define MLX_YELLOW 16187136
+# define MLX_ORANGE 16075047
+# define MLX_GREY 9868950
+
+typedef struct s_data_img
+{
+	int		bpp;
+	int		ll;
+	int		endian;
+}			t_data_img;
+
+typedef struct s_minimap
+{
+	int			pos;
+	int			scale;
+	void		*img;
+	char		*addr;
+}			  t_minimap;
+
 typedef struct s_data_desc
 {
 	char	*path_no;
@@ -40,6 +69,8 @@ typedef struct s_game
 	t_gc		*gc;
 	t_gc		**gc_head;
 	t_data_desc	*data_desc;
+	t_minimap	*minimap;
+	t_data_img	data_img;
 }				t_game;
 
 #endif

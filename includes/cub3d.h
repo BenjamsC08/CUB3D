@@ -10,11 +10,14 @@
 /*
  *		  Utiles
 */ 
-int		encode_trgb(t_byte t, t_byte r, t_byte g, t_byte b);
-t_byte	get_t(int trgb);
-t_byte	get_r(int trgb);
-t_byte	get_g(int trgb);
-t_byte	get_b(int trgb);
+int		encode_rgb(t_byte r, t_byte g, t_byte b);
+t_byte	get_r(int rgb);
+t_byte	get_g(int rgb);
+t_byte	get_b(int rgb);
+
+// void	ft_pixel_put(t_game *game, int x, int y, int color);
+void	ft_pixel_put(t_data_img data_img, char **addr, int pos[2], int color);
+
 /*
 *		  Parsing
 */
@@ -29,5 +32,10 @@ int		error_map(char **map, int j, int i);
 int	check_line(char *line, t_game *game);
 //map
 int extract_map(t_game *game, int fd);
+/*
+*		  MINIMAP
+*/
+int draw_map(t_game *game, int pos, int scale);
+
 
 #endif
