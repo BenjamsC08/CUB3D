@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_pixel_put(t_data_img data_img, char **addr, int pos[], int color)
+void	ft_pixel_put(t_data_img data_img, char **addr, int pos[2], int color)
 {
 	char	*dst;
 
