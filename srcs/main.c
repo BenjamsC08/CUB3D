@@ -16,12 +16,6 @@ int	init_base(t_game *game)
 	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
 	if (!game->data_desc)
 		return (ft_clear_gc(game->gc_head), 0);
-<<<<<<< HEAD
-	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
-	if (!game->minimap)
-		return (ft_clear_gc(game->gc_head), 0);
-=======
->>>>>>> c59306a (reset all)
 	game->perso = ft_gcalloc(game->gc_head, sizeof(t_player));
 	if (!game->perso)
 		return (ft_clear_gc(game->gc_head), 0);
@@ -36,13 +30,11 @@ int  close_all(t_game *game)
 	exit (0);
 }
 
-static int	key_hook(int keycode, t_game *game)
+static int	key_pressed(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 		close_all(game);
-<<<<<<< HEAD
-=======
-	if (keycode == CAPS_KEY)
+	if (keycode == S_KEY)
 	{
 		ft_clear_background(game, MLX_BLACK);
 	}
@@ -51,30 +43,13 @@ static int	key_hook(int keycode, t_game *game)
 	return (0);
 }
 
-static int	key_hook_released(int keycode, t_game *game)
+static int	key_released(int keycode, t_game *game)
 {
 	(void)keycode;
 	(void)game;
 	return (0);
 }
 
-<<<<<<< HEAD
-void	temp_bg(t_game *game)
-{
-	void	*img;
-	// char	*addr;
-	int		x;
-	int		y;
-
-	img = mlx_xpm_file_to_image(game->mlx, "./assets/BG.xpm", &x, &y);
-	// addr = mlx_get_data_addr(img, &game->data_img.bpp, &game->data_img.ll, &game->data_img.endian);
-	mlx_put_image_to_window(game->mlx, game->win, img, 0, 0);
-	mlx_destroy_image(game->mlx, img);
-
-}
-
-=======
->>>>>>> c59306a (reset all)
 int	looping_hook(t_game *game)
 {
 	static int fc = 0;
@@ -85,19 +60,15 @@ int	looping_hook(t_game *game)
 		ft_clear_background(game, MLX_BLUE);
 		fc = 0;
 	}
->>>>>>> f1f8776 (not finished draw rectangle)
 	return (0);
 }
 
 int game_loop(t_game *game)
 {
-	draw_map(game, 0, 1);
-	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
+	mlx_hook(game->win, 2, 1L << 0, key_pressed, game);
+	mlx_hook(game->win, 3, 1L << 1, key_released, game);
 	mlx_hook(game->win, 17, 1L << 0, close_all, game);
-<<<<<<< HEAD
-=======
 	mlx_loop_hook(game->mlx, looping_hook, game);
->>>>>>> c59306a (reset all)
 	mlx_loop(game->mlx);
 	return (0);
 }

@@ -20,10 +20,11 @@
 # define D_KEY 100
 # define S_KEY 115
 # define ESC 65307
+# define CAPS 65293
 
-#	define TOP_RIGHT 0
-#	define TOP_LEFT 1
-#	define CENTER 2
+# define TOP_RIGHT 0
+# define TOP_LEFT 1
+# define CENTER 2
 
 # define MLX_BLACK 0
 # define MLX_WHITE 16777215
@@ -52,17 +53,6 @@ typedef struct s_data_img
 	char	*addr;
 }			t_data_img;
 
-<<<<<<< HEAD
-typedef struct s_minimap
-{
-	int			pos;
-	int			scale;
-	void		*img;
-	char		*addr;
-}			  t_minimap;
-
-=======
->>>>>>> c59306a (reset all)
 typedef struct s_data_desc
 {
 	char	*path_no;
