@@ -76,6 +76,12 @@ typedef struct s_player
 	t_bool	key_right;
 }		  t_player;
 
+typedef struct s_minimap
+{
+	t_rect map;
+	t_rect player;
+}			t_minimap;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -85,7 +91,7 @@ typedef struct s_game
 	t_data_desc	*data_desc;
 	t_data_img	*data_img;
 	t_player	*player;
-	t_rect		*minimap;
+	t_minimap	*minimap;
 }				t_game;
 
 #endif

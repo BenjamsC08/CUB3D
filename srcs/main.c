@@ -1,19 +1,20 @@
 #include "cub3d.h"
 
-void	move_player(t_player *player)
+void	move_minimap_player(t_game *game)
 {
 	int	speed;
+	t_minimap *map;
 
 	speed = 1;
-
-	if (player->key_up == TRUE)
-		player->y -= speed;
-	if (player->key_left == TRUE)
-		player->x -= speed;
-	if (player->key_down == TRUE)
-		player->y += speed;
-	if (player->key_right == TRUE)
-		player->x += speed;
+	map = game->minimap;
+	if (game->player->key_up == TRUE && map->player.y > 1)
+		map->player.y -= speed;
+	if (game->player->key_left == TRUE && map->player.x > 1)
+		map->player.x -= speed;
+	if (game->player->key_down == TRUE && map->player.y < (map->map.h - map->player.h) - 1)
+		map->player.y += speed;
+	if (game->player->key_right == TRUE && map->player.x < (map->map.w - map->player.w) - 1)
+		map->player.x += speed;
 }
 
 void	init_player(t_player *player)
@@ -28,15 +29,17 @@ void	init_player(t_player *player)
 
 void init_minimap(t_game *game)
 {
-	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_rect));
+	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
 	if (!game->minimap)
 		return ((void)ft_clear_gc(game->gc_head));
-	game->minimap->x = 0;
-	game->minimap->y = 0;
-	game->minimap->w = (W_WIDTH/6);
-	game->minimap->h = (W_HEIGHT/4);
-	game->player->y = (W_HEIGHT/4)/2;
-	game->player->x = (W_WIDTH/6)/2;
+	game->minimap->map.x = 0;
+	game->minimap->map.y = 0;
+	game->minimap->map.w = (W_WIDTH/6);
+	game->minimap->map.h = (W_HEIGHT/4);
+	game->minimap->player.y = (W_HEIGHT/4)/2;
+	game->minimap->player.x = (W_WIDTH/6)/2;
+	game->minimap->player.w = 5;
+	game->minimap->player.h = 5;
 }
 
 int	init_base(t_game *game)
@@ -112,23 +115,13 @@ static int	key_released(int keycode, t_game *game)
 
 void	draw_map(t_game *game)
 {
-	t_player *p;
-	t_rect	  r;
-
-	p = game->player;
-	draw_rect(game, *game->minimap, MLX_GREY);
-	r = get_rect(p->x, p->y, 5, 5);
-	draw_rect(game, r, MLX_GREEN);
-
-
+	draw_rect(game, game->minimap->map, MLX_GREY);
+	draw_rect(game, game->minimap->player, MLX_GREEN);
 }
 
 int	looping_hook(t_game *game)
 {
-	t_player *p;
-
-	p = game->player;
-	move_player(p);
+	move_minimap_player(game);
 	ft_clear_background(game, MLX_BLACK);
 	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
