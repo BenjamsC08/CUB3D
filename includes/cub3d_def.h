@@ -85,6 +85,7 @@ typedef struct s_game
 	t_data_desc	*data_desc;
 	t_data_img	*data_img;
 	t_player	*player;
+	t_rect		*minimap;
 }				t_game;
 
 #endif

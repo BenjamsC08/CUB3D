@@ -4,7 +4,7 @@ void	move_player(t_player *player)
 {
 	int	speed;
 
-	speed = 5;
+	speed = 1;
 
 	if (player->key_up == TRUE)
 		player->y -= speed;
@@ -24,6 +24,19 @@ void	init_player(t_player *player)
 	player->key_left = FALSE;
 	player->key_down = FALSE;
 	player->key_right = FALSE;
+}
+
+void init_minimap(t_game *game)
+{
+	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_rect));
+	if (!game->minimap)
+		return ((void)ft_clear_gc(game->gc_head));
+	game->minimap->x = 0;
+	game->minimap->y = 0;
+	game->minimap->w = (W_WIDTH/6);
+	game->minimap->h = (W_HEIGHT/4);
+	game->player->y = (W_HEIGHT/4)/2;
+	game->player->x = (W_WIDTH/6)/2;
 }
 
 int	init_base(t_game *game)
@@ -53,6 +66,7 @@ int	init_base(t_game *game)
 	if (!game->player)
 		return (ft_clear_gc(game->gc_head), 0);
 	init_player(game->player);
+	init_minimap(game);
 	return (1);
 }
 
@@ -96,16 +110,27 @@ static int	key_released(int keycode, t_game *game)
 	return (0);
 }
 
-int	looping_hook(t_game *game)
+void	draw_map(t_game *game)
 {
 	t_player *p;
 	t_rect	  r;
 
 	p = game->player;
-	move_player(p);
+	draw_rect(game, *game->minimap, MLX_GREY);
 	r = get_rect(p->x, p->y, 5, 5);
-	ft_clear_background(game, MLX_BLACK);
 	draw_rect(game, r, MLX_GREEN);
+
+
+}
+
+int	looping_hook(t_game *game)
+{
+	t_player *p;
+
+	p = game->player;
+	move_player(p);
+	ft_clear_background(game, MLX_BLACK);
+	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
