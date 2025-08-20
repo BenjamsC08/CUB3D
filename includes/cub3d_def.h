@@ -35,13 +35,24 @@
 # define MLX_ORANGE 16075047
 # define MLX_GREY 9868950
 
+
+typedef struct s_rect
+{
+	int x;
+	int y;
+	int w;
+	int h;
+}		t_rect;
+
 typedef struct s_data_img
 {
 	int		bpp;
 	int		ll;
 	int		endian;
+	char	*addr;
 }			t_data_img;
 
+<<<<<<< HEAD
 typedef struct s_minimap
 {
 	int			pos;
@@ -50,6 +61,8 @@ typedef struct s_minimap
 	char		*addr;
 }			  t_minimap;
 
+=======
+>>>>>>> c59306a (reset all)
 typedef struct s_data_desc
 {
 	char	*path_no;
@@ -74,7 +87,6 @@ typedef struct s_game
 	t_gc		*gc;
 	t_gc		**gc_head;
 	t_data_desc	*data_desc;
-	t_minimap	*minimap;
 	t_data_img	data_img;
 	t_player	*perso;
 }				t_game;

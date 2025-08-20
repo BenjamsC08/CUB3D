@@ -43,6 +43,8 @@
 #define MAJ_HEX 'X'
 #define MIN_HEX 'x'
 
+# define PI 3.14159265359
+
 typedef unsigned char	t_byte;
 
 typedef struct s_list

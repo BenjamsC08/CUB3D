@@ -16,9 +16,12 @@ int	init_base(t_game *game)
 	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
 	if (!game->data_desc)
 		return (ft_clear_gc(game->gc_head), 0);
+<<<<<<< HEAD
 	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
 	if (!game->minimap)
 		return (ft_clear_gc(game->gc_head), 0);
+=======
+>>>>>>> c59306a (reset all)
 	game->perso = ft_gcalloc(game->gc_head, sizeof(t_player));
 	if (!game->perso)
 		return (ft_clear_gc(game->gc_head), 0);
@@ -27,8 +30,6 @@ int	init_base(t_game *game)
 
 int  close_all(t_game *game)
 {
-	if (game->minimap->img)
-		mlx_destroy_image(game->mlx, game->minimap->img);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
@@ -43,18 +44,7 @@ static int	key_hook(int keycode, t_game *game)
 =======
 	if (keycode == CAPS_KEY)
 	{
-		if (game->minimap->pos == game->minimap->b_pos)
-		{
-			game->minimap->pos = CENTER;
-			game->minimap->scale = 3;
-		}
-		else
-		{
-			game->minimap->pos = game->minimap->b_pos;
-			game->minimap->scale = 1;
-		}
 		ft_clear_background(game, MLX_BLACK);
-		draw_map(game, game->minimap->pos, game->minimap->scale);
 	}
 	else
 		ft_printf("key unknown press code :%d\n", keycode);
@@ -68,6 +58,7 @@ static int	key_hook_released(int keycode, t_game *game)
 	return (0);
 }
 
+<<<<<<< HEAD
 void	temp_bg(t_game *game)
 {
 	void	*img;
@@ -82,6 +73,8 @@ void	temp_bg(t_game *game)
 
 }
 
+=======
+>>>>>>> c59306a (reset all)
 int	looping_hook(t_game *game)
 {
 	static int fc = 0;
@@ -89,8 +82,7 @@ int	looping_hook(t_game *game)
 	fc++;
 	if (fc == 500000)
 	{
-		ft_clear_background(game, MLX_BLACK);
-		draw_map(game, game->minimap->pos, game->minimap->scale);
+		ft_clear_background(game, MLX_BLUE);
 		fc = 0;
 	}
 >>>>>>> f1f8776 (not finished draw rectangle)
@@ -102,6 +94,10 @@ int game_loop(t_game *game)
 	draw_map(game, 0, 1);
 	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
 	mlx_hook(game->win, 17, 1L << 0, close_all, game);
+<<<<<<< HEAD
+=======
+	mlx_loop_hook(game->mlx, looping_hook, game);
+>>>>>>> c59306a (reset all)
 	mlx_loop(game->mlx);
 	return (0);
 }
@@ -122,8 +118,5 @@ int main(int argc, char **argv)
 	if (!load_cub_file(&game, argv[1]))
 		return (close_all(&game));
 	game_loop(&game);
-	// ft_print_strs(game.data_desc->map);
-	// close_all(&game);
-	// ft_printf("GREY %d\n", encode_rgb(150, 150 ,150));
 	return (0);
 }
