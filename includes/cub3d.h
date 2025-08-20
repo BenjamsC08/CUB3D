@@ -16,7 +16,13 @@ t_byte	get_g(int rgb);
 t_byte	get_b(int rgb);
 
 // void	ft_pixel_put(t_game *game, int x, int y, int color);
+<<<<<<< HEAD
 void	ft_pixel_put(t_data_img data_img, char **addr, int pos[2], int color);
+=======
+void	ft_pixel_put(t_data_img data_img, char **addr, int pos[], int color);
+void	ft_clear_background(t_game *game, int color);
+
+>>>>>>> f1f8776 (not finished draw rectangle)
 
 /*
 *		  Parsing

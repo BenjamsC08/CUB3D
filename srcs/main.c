@@ -32,6 +32,61 @@ static int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 		close_all(game);
+<<<<<<< HEAD
+=======
+	if (keycode == CAPS_KEY)
+	{
+		if (game->minimap->pos == game->minimap->b_pos)
+		{
+			game->minimap->pos = CENTER;
+			game->minimap->scale = 3;
+		}
+		else
+		{
+			game->minimap->pos = game->minimap->b_pos;
+			game->minimap->scale = 1;
+		}
+		ft_clear_background(game, MLX_BLUE);
+		draw_map(game, game->minimap->pos, game->minimap->scale);
+	}
+	else
+		ft_printf("key unknown press code :%d\n", keycode);
+	return (0);
+}
+
+static int	key_hook_released(int keycode, t_game *game)
+{
+	(void)keycode;
+	(void)game;
+	return (0);
+}
+
+void	temp_bg(t_game *game)
+{
+	void	*img;
+	// char	*addr;
+	int		x;
+	int		y;
+
+	img = mlx_xpm_file_to_image(game->mlx, "./assets/BG.xpm", &x, &y);
+	// addr = mlx_get_data_addr(img, &game->data_img.bpp, &game->data_img.ll, &game->data_img.endian);
+	mlx_put_image_to_window(game->mlx, game->win, img, 0, 0);
+	mlx_destroy_image(game->mlx, img);
+
+}
+
+int	looping_hook(t_game *game)
+{
+	static int fc = 0;
+
+	fc++;
+	if (fc == 500000)
+	{
+		ft_clear_background(game, MLX_BLUE);
+		draw_map(game, game->minimap->pos, game->minimap->scale);
+		fc = 0;
+	}
+>>>>>>> f1f8776 (not finished draw rectangle)
 	return (0);
 }
 
