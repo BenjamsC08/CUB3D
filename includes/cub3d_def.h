@@ -50,6 +50,7 @@ typedef struct s_data_img
 	int		bpp;
 	int		ll;
 	int		endian;
+	void	*img;
 	char	*addr;
 }			t_data_img;
 
@@ -61,13 +62,18 @@ typedef struct s_data_desc
 	char	*path_ea;
 	t_byte	floor_color;
 	t_byte	ceiling_color;
+	t_bool	player;
 	char	**map;
 }			t_data_desc;
 
 typedef struct s_player
 {
-	float x;
-	float y;
+	float	x;
+	float	y;
+	t_bool	key_up;
+	t_bool	key_down;
+	t_bool	key_left;
+	t_bool	key_right;
 }		  t_player;
 
 typedef struct s_game
@@ -77,8 +83,8 @@ typedef struct s_game
 	t_gc		*gc;
 	t_gc		**gc_head;
 	t_data_desc	*data_desc;
-	t_data_img	data_img;
-	t_player	*perso;
+	t_data_img	*data_img;
+	t_player	*player;
 }				t_game;
 
 #endif

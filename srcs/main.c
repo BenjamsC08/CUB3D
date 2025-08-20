@@ -1,5 +1,31 @@
 #include "cub3d.h"
 
+void	move_player(t_player *player)
+{
+	int	speed;
+
+	speed = 5;
+
+	if (player->key_up == TRUE)
+		player->y -= speed;
+	if (player->key_left == TRUE)
+		player->x -= speed;
+	if (player->key_down == TRUE)
+		player->y += speed;
+	if (player->key_right == TRUE)
+		player->x += speed;
+}
+
+void	init_player(t_player *player)
+{
+	player->y = W_HEIGHT/2;
+	player->x = W_WIDTH/2;
+	player->key_up = FALSE;
+	player->key_left = FALSE;
+	player->key_down = FALSE;
+	player->key_right = FALSE;
+}
+
 int	init_base(t_game *game)
 {
 	game->gc = init_gc();
@@ -16,14 +42,24 @@ int	init_base(t_game *game)
 	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
 	if (!game->data_desc)
 		return (ft_clear_gc(game->gc_head), 0);
-	game->perso = ft_gcalloc(game->gc_head, sizeof(t_player));
-	if (!game->perso)
+	game->data_desc->player = FALSE;
+	game->data_img = ft_gcalloc(game->gc_head, sizeof(t_data_img));
+	if (!game->data_img)
 		return (ft_clear_gc(game->gc_head), 0);
+	game->data_img->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT);
+	game->data_img->addr = mlx_get_data_addr(game->data_img->img, &game->data_img->bpp, &game->data_img->ll,&game->data_img->endian);
+	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
+	game->player = ft_gcalloc(game->gc_head, sizeof(t_player));
+	if (!game->player)
+		return (ft_clear_gc(game->gc_head), 0);
+	init_player(game->player);
 	return (1);
 }
 
 int  close_all(t_game *game)
 {
+	if (game->data_img->img)
+		mlx_destroy_image(game->mlx, game->data_img->img);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	ft_clear_gc(game->gc_head);
@@ -34,32 +70,43 @@ static int	key_pressed(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 		close_all(game);
+	if (keycode == W_KEY)
+		game->player->key_up = TRUE;
+	if (keycode == A_KEY)
+		game->player->key_left = TRUE;
 	if (keycode == S_KEY)
-	{
-		ft_clear_background(game, MLX_BLACK);
-	}
-	else
-		ft_printf("key unknown press code :%d\n", keycode);
+		game->player->key_down = TRUE;
+	if (keycode == D_KEY)
+		game->player->key_right = TRUE;
+	/*else*/
+	/*	ft_printf("key unknown press code :%d\n", keycode);*/
 	return (0);
 }
 
 static int	key_released(int keycode, t_game *game)
 {
-	(void)keycode;
-	(void)game;
+	if (keycode == W_KEY)
+		game->player->key_up = FALSE;
+	if (keycode == A_KEY)
+		game->player->key_left = FALSE;
+	if (keycode == S_KEY)
+		game->player->key_down = FALSE;
+	if (keycode == D_KEY)
+		game->player->key_right = FALSE;
 	return (0);
 }
 
 int	looping_hook(t_game *game)
 {
-	static int fc = 0;
+	t_player *p;
+	t_rect	  r;
 
-	fc++;
-	if (fc == 500000)
-	{
-		ft_clear_background(game, MLX_BLUE);
-		fc = 0;
-	}
+	p = game->player;
+	move_player(p);
+	r = get_rect(p->x, p->y, 5, 5);
+	ft_clear_background(game, MLX_BLACK);
+	draw_rect(game, r, MLX_GREEN);
+	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
 

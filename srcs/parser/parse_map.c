@@ -2,14 +2,15 @@
 
 static int	prealable_check(t_game *game, char c, int y, int x)
 {
+	(void)y;
+	(void)x;
 	if (!ft_ischarset(c, "NSWE012 "))
 		return (0);
-	if (ft_ischarset(c, "NSWE") && !game->perso->y)
+	if (ft_ischarset(c, "NSWE") && !game->data_desc->player)
 	{
-		game->perso->y = (float)y;
-		game->perso->x = (float)x;
+		game->data_desc->player = TRUE;
 	}
-	else if (ft_ischarset(c, "NSWE") && game->perso->y)
+	else if (ft_ischarset(c, "NSWE") && game->data_desc->player)
 		return (0);
 	return (1);
 }
@@ -63,7 +64,7 @@ static int check_map(t_game *game)
 		j++;
 	}
 	free_strs(map);
-	if (!game->perso->y && !game->perso->x)
+	if (!game->data_desc->player)
 		return (not_a_good_file(MAP));
 	return (1);
 }
