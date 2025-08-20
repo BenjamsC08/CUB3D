@@ -1,21 +1,6 @@
 #include "cub3d.h"
 
-void	move_minimap_player(t_game *game)
-{
-	int	speed;
-	t_minimap *map;
 
-	speed = 1;
-	map = game->minimap;
-	if (game->player->key_up == TRUE && map->player.y > 1)
-		map->player.y -= speed;
-	if (game->player->key_left == TRUE && map->player.x > 1)
-		map->player.x -= speed;
-	if (game->player->key_down == TRUE && map->player.y < (map->map.h - map->player.h) - 1)
-		map->player.y += speed;
-	if (game->player->key_right == TRUE && map->player.x < (map->map.w - map->player.w) - 1)
-		map->player.x += speed;
-}
 
 void	init_player(t_player *player)
 {
@@ -113,17 +98,12 @@ static int	key_released(int keycode, t_game *game)
 	return (0);
 }
 
-void	draw_map(t_game *game)
-{
-	draw_rect(game, game->minimap->map, MLX_GREY);
-	draw_rect(game, game->minimap->player, MLX_GREEN);
-}
+
 
 int	looping_hook(t_game *game)
 {
-	move_minimap_player(game);
 	ft_clear_background(game, MLX_BLACK);
-	draw_map(game);
+	ft_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }

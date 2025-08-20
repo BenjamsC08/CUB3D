@@ -1,19 +1,30 @@
 #include "cub3d.h"
 
-int draw_map(t_game *game, int pos, int scale)
+void	move_minimap_player(t_game *game)
 {
-	const int y = (W_HEIGHT/4) * scale;
-	const int x = (W_WIDTH/6) * scale;
+	int	speed;
+	t_minimap *map;
 
-	(void)pos;
-	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
-	if (!game->minimap)
-		return (1);
-	game->minimap->img = mlx_new_image(game->mlx, x, y);
-	game->minimap->addr = mlx_get_data_addr(game->minimap->img, &game->data_img->bpp, &game->data_img->ll, &game->data_img->endian);
-	draw_rect(game, y, x);
-	mlx_put_image_to_window(game->mlx, game->win, game->minimap->img, 0 ,0); // mettre le offset  ici et pas dans les image	
-	return (0);
+	speed = 1;
+	map = game->minimap;
+	if (game->player->key_up == TRUE && map->player.y > 1)
+		map->player.y -= speed;
+	if (game->player->key_left == TRUE && map->player.x > 1)
+		map->player.x -= speed;
+	if (game->player->key_down == TRUE && map->player.y < (map->map.h - map->player.h) - 1)
+		map->player.y += speed;
+	if (game->player->key_right == TRUE && map->player.x < (map->map.w - map->player.w) - 1)
+		map->player.x += speed;
 }
 
+void	draw_map(t_game *game)
+{
+	draw_rect(game, game->minimap->map, MLX_GREY);
+	draw_rect(game, game->minimap->player, MLX_GREEN);
+}
 
+void	ft_minimap(t_game *game)
+{
+	move_minimap_player(game);
+	draw_map(game);
+}
