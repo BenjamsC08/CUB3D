@@ -6,10 +6,13 @@ void	init_player(t_player *player)
 {
 	player->y = W_HEIGHT/2;
 	player->x = W_WIDTH/2;
+	player->angle = PI/2;
 	player->key_up = FALSE;
 	player->key_left = FALSE;
 	player->key_down = FALSE;
 	player->key_right = FALSE;
+	player->right_rotate = FALSE;
+	player->left_rotate = FALSE;
 }
 
 void init_minimap(t_game *game)
@@ -80,6 +83,10 @@ static int	key_pressed(int keycode, t_game *game)
 		game->player->key_down = TRUE;
 	if (keycode == D_KEY)
 		game->player->key_right = TRUE;
+	if (keycode == R_ARROW)
+		game->player->right_rotate = TRUE;
+	if (keycode == L_ARROW)
+		game->player->left_rotate = TRUE;
 	/*else*/
 	/*	ft_printf("key unknown press code :%d\n", keycode);*/
 	return (0);
@@ -95,6 +102,10 @@ static int	key_released(int keycode, t_game *game)
 		game->player->key_down = FALSE;
 	if (keycode == D_KEY)
 		game->player->key_right = FALSE;
+	if (keycode == R_ARROW)
+		game->player->right_rotate = FALSE;
+	if (keycode == L_ARROW)
+		game->player->left_rotate = FALSE;
 	return (0);
 }
 

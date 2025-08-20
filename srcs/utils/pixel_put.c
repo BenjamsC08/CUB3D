@@ -4,6 +4,9 @@ void	ft_pixel_put(t_game *game, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x >= W_WIDTH || x < 0 || y >= W_HEIGHT || y < 0)
+		return ;
+
 	dst = game->data_img->addr + (y * game->data_img->ll + x * (game->data_img->bpp / 8));
 	*(unsigned int*)dst = color;
 }

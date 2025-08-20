@@ -11,6 +11,8 @@
 # define W_WIDTH 1280
 # define W_HEIGHT 720
 
+# define BLOCK 10
+
 # define U_ARROW 65362
 # define L_ARROW 65361
 # define R_ARROW 65363
@@ -70,10 +72,13 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
+	float	angle;
 	t_bool	key_up;
 	t_bool	key_down;
 	t_bool	key_left;
 	t_bool	key_right;
+	t_bool	left_rotate;
+	t_bool	right_rotate;
 }		  t_player;
 
 typedef struct s_minimap

@@ -3,6 +3,7 @@
 
 # include <mlx.h>
 # include <stdlib.h>
+# include <math.h>
 # include "libft.h"
 
 # include "cub3d_def.h"
