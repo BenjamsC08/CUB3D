@@ -5,6 +5,7 @@ void init_minimap(t_game *game)
 	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
 	if (!game->minimap)
 		return ((void)ft_clear_gc(game->gc_head));
+	game->minimap->disp_map = FALSE;
 	game->minimap->map.x = W_WIDTH/2 - (W_WIDTH/4);
 	game->minimap->map.y = W_HEIGHT/2  - (W_HEIGHT/4);
 	game->minimap->map.w = (W_WIDTH/2);
@@ -55,20 +56,18 @@ static int	key_pressed(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 		close_all(game);
-	if (keycode == W_KEY)
+	else if (keycode == W_KEY)
 		game->player->key_up = TRUE;
-	if (keycode == A_KEY)
+	else if (keycode == A_KEY)
 		game->player->key_left = TRUE;
-	if (keycode == S_KEY)
+	else if (keycode == S_KEY)
 		game->player->key_down = TRUE;
-	if (keycode == D_KEY)
+	else if (keycode == D_KEY)
 		game->player->key_right = TRUE;
-	if (keycode == R_ARROW)
-		game->player->right_rotate = TRUE;
-	if (keycode == L_ARROW)
-		game->player->left_rotate = TRUE;
-	/*else*/
-	/*	ft_printf("key unknown press code :%d\n", keycode);*/
+	else if (keycode == M_KEY)
+		game->minimap->disp_map = TRUE;
+	else
+		ft_printf("key unknown press code :%d\n", keycode);
 	return (0);
 }
 
@@ -82,10 +81,8 @@ static int	key_released(int keycode, t_game *game)
 		game->player->key_down = FALSE;
 	if (keycode == D_KEY)
 		game->player->key_right = FALSE;
-	if (keycode == R_ARROW)
-		game->player->right_rotate = FALSE;
-	if (keycode == L_ARROW)
-		game->player->left_rotate = FALSE;
+	if (keycode == M_KEY)
+		game->minimap->disp_map = FALSE;
 	return (0);
 }
 
@@ -94,6 +91,7 @@ static int	key_released(int keycode, t_game *game)
 int	looping_hook(t_game *game)
 {
 	ft_clear_background(game, MLX_BLACK);
+	// if (game->minimap->disp_map == TRUE)
 	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
