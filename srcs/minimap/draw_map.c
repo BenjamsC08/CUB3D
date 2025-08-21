@@ -119,9 +119,9 @@ void	draw_wall(t_game *game)
 void	draw_map(t_game *game)
 {
 	/*draw_rect(game, game->minimap->map, MLX_GREY);*/
-	draw_rect(game, game->minimap->player, MLX_GREEN);
 	draw_wall(game);
 	draw_ray(game);
+	draw_rect(game, game->minimap->player, MLX_GREEN);
 }
 
 void	ft_minimap(t_game *game)

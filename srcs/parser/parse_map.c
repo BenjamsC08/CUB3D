@@ -9,6 +9,10 @@ static int	prealable_check(t_game *game, char c, int y, int x)
 	if (ft_ischarset(c, "NSWE") && !game->data_desc->player)
 	{
 		game->data_desc->player = TRUE;
+		game->data_desc->player_y = y;
+		game->minimap->player.y = y * BLOCK;
+		game->data_desc->player_x = x;
+		game->minimap->player.x = x * BLOCK;
 	}
 	else if (ft_ischarset(c, "NSWE") && game->data_desc->player)
 		return (0);

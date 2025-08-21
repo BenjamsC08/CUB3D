@@ -24,8 +24,8 @@ void init_minimap(t_game *game)
 	game->minimap->map.y = 0;
 	game->minimap->map.w = (W_WIDTH/6);
 	game->minimap->map.h = (W_HEIGHT/4);
-	game->minimap->player.y = (W_HEIGHT/4)/2;
-	game->minimap->player.x = (W_WIDTH/6)/2;
+	game->minimap->player.y = 0;
+	game->minimap->player.x = 0;
 	game->minimap->player.w = 5;
 	game->minimap->player.h = 5;
 }

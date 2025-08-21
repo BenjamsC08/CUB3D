@@ -11,7 +11,7 @@
 # define W_WIDTH 1280
 # define W_HEIGHT 720
 
-# define BLOCK 10
+# define BLOCK 16
 
 # define U_ARROW 65362
 # define L_ARROW 65361
@@ -65,6 +65,8 @@ typedef struct s_data_desc
 	t_byte	floor_color;
 	t_byte	ceiling_color;
 	t_bool	player;
+	int		player_y;
+	int		player_x;
 	char	**map;
 }			t_data_desc;
 
