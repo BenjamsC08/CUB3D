@@ -4,7 +4,7 @@ static int	prealable_check(t_game *game, char c, int y, int x)
 {
 	(void)y;
 	(void)x;
-	if (!ft_ischarset(c, "NSWE012 "))
+	if (!ft_ischarset(c, "NSWE0123 "))
 		return (0);
 	if (ft_ischarset(c, "NSWE") && !game->data_desc->player)
 	{

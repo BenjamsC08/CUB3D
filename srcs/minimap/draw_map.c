@@ -19,11 +19,35 @@ void	draw_wall(t_game *game)
 		{
 			if (map[y][x] == '1')
 			{
-				r.x = x * w;
-				r.y = y * h;
+				r.x = (x * w) + game->minimap->map.x;
+				r.y = (y * h) + game->minimap->map.y;
 				r.w = w;
 				r.h = h;
 				draw_rect(game, r, MLX_RED);
+			}
+			if (map[y][x] == '2')
+			{
+				r.x = (x * w) + game->minimap->map.x;
+				r.y = (y * h) + game->minimap->map.y;
+				r.w = w;
+				r.h = h;
+				draw_rect(game, r, MLX_GREEN);
+			}
+			if (map[y][x] == '3')
+			{
+				r.x = (x * w) + game->minimap->map.x;
+				r.y = (y * h) + game->minimap->map.y;
+				r.w = w;
+				r.h = h;
+				draw_rect(game, r, MLX_YELLOW);
+			}
+			if (ft_ischarset(map[y][x], "NSWE"))
+			{
+				r.x = (x * w) + game->minimap->map.x;
+				r.y = (y * h) + game->minimap->map.y;
+				r.w = w;
+				r.h = h;
+				draw_rect(game, r, MLX_PURPLE);
 			}
 		}
 

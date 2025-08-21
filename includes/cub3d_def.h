@@ -36,6 +36,7 @@
 # define MLX_BLUE 255
 # define MLX_YELLOW 16187136
 # define MLX_ORANGE 16075047
+# define MLX_PURPLE 10160621
 # define MLX_GREY 9868950
 
 

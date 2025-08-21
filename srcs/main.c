@@ -5,10 +5,10 @@ void init_minimap(t_game *game)
 	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
 	if (!game->minimap)
 		return ((void)ft_clear_gc(game->gc_head));
-	game->minimap->map.x = 0;
-	game->minimap->map.y = 0;
-	game->minimap->map.w = (W_WIDTH/6);
-	game->minimap->map.h = (W_HEIGHT/4);
+	game->minimap->map.x = W_WIDTH/2 - (W_WIDTH/4);
+	game->minimap->map.y = W_HEIGHT/2  - (W_HEIGHT/4);
+	game->minimap->map.w = (W_WIDTH/2);
+	game->minimap->map.h = (W_HEIGHT/2);
 }
 
 int	init_base(t_game *game)
