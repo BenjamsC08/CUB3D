@@ -28,7 +28,7 @@ void	draw_rect(t_game *game, t_rect rect, int color);
 /*													*/
 /*						Parsing						*/
 /*													*/
-
+int		init_parser(t_game *game);
 //						Base
 int		good_file_ext(char *str);
 int		convert_colors(char **strs, t_game *game, char c);
@@ -37,13 +37,26 @@ int		load_cub_file(t_game *game, char *str);
 int		not_a_good_file(int k);
 int		error_map(char **map, int j, int i);
 //						Line
-int	check_line(char *line, t_game *game);
+int		check_line(char *line, t_game *game);
 //						Map
-int extract_map(t_game *game, int fd);
+int		extract_map(t_game *game, int fd);
 
 /*													*/
 /*						Minimap						*/
 /*													*/
+int		init_minimap(t_game *game);
+//						Draw
 void	draw_map(t_game *game);
+void	draw_minimap(t_game *game);
+
+/*													*/
+/*						INIT						*/
+/*													*/
+int		init_base(t_game *game);
+
+/*													*/
+/*						DESTROY						*/
+/*													*/
+int  close_all(t_game *game);
 
 #endif

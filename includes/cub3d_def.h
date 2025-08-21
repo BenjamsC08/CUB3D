@@ -23,7 +23,7 @@
 # define S_KEY 115
 # define M_KEY 109
 # define ESC 65307
-# define CAPS 65293
+# define CAPS 65509
 
 # define TOP_RIGHT 0
 # define TOP_LEFT 1
@@ -91,6 +91,7 @@ typedef struct s_minimap
 {
 	t_bool disp_map;
 	t_rect map;
+	t_rect minimap;
 	// t_rect player;
 }			t_minimap;
 
