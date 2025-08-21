@@ -68,6 +68,8 @@ typedef struct s_data_desc
 	int		player_y;
 	int		player_x;
 	char	**map;
+	int		length_line;
+	int		nb_line;
 }			t_data_desc;
 
 typedef struct s_player
@@ -86,7 +88,7 @@ typedef struct s_player
 typedef struct s_minimap
 {
 	t_rect map;
-	t_rect player;
+	// t_rect player;
 }			t_minimap;
 
 typedef struct s_game

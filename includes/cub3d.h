@@ -44,6 +44,6 @@ int extract_map(t_game *game, int fd);
 /*													*/
 /*						Minimap						*/
 /*													*/
-void	ft_minimap(t_game *game);
+void	draw_map(t_game *game);
 
 #endif

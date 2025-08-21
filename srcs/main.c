@@ -1,20 +1,5 @@
 #include "cub3d.h"
 
-
-
-void	init_player(t_player *player)
-{
-	player->y = W_HEIGHT/2;
-	player->x = W_WIDTH/2;
-	player->angle = PI/2;
-	player->key_up = FALSE;
-	player->key_left = FALSE;
-	player->key_down = FALSE;
-	player->key_right = FALSE;
-	player->right_rotate = FALSE;
-	player->left_rotate = FALSE;
-}
-
 void init_minimap(t_game *game)
 {
 	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
@@ -24,10 +9,6 @@ void init_minimap(t_game *game)
 	game->minimap->map.y = 0;
 	game->minimap->map.w = (W_WIDTH/6);
 	game->minimap->map.h = (W_HEIGHT/4);
-	game->minimap->player.y = 0;
-	game->minimap->player.x = 0;
-	game->minimap->player.w = 5;
-	game->minimap->player.h = 5;
 }
 
 int	init_base(t_game *game)
@@ -56,7 +37,6 @@ int	init_base(t_game *game)
 	game->player = ft_gcalloc(game->gc_head, sizeof(t_player));
 	if (!game->player)
 		return (ft_clear_gc(game->gc_head), 0);
-	init_player(game->player);
 	init_minimap(game);
 	return (1);
 }
@@ -114,7 +94,7 @@ static int	key_released(int keycode, t_game *game)
 int	looping_hook(t_game *game)
 {
 	ft_clear_background(game, MLX_BLACK);
-	ft_minimap(game);
+	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
