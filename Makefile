@@ -54,11 +54,10 @@ clean: clean_mlx
 fclean: clean
 	@printf "$(NOTVALID)Remove CUB3D && libft.a\n$(RESET)";
 	@rm -rf $(NAME) libft/libft.a
+
+aclean: fclean
 	@printf "$(NOTVALID)Remove mlx_linux repertory\n$(RESET)";
 	@rm -rf mlx_linux
-
-aclean: clean
-	rm -rf $(NAME) libft/libft.a
 
 re : fclean all
 
