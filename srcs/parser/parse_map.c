@@ -2,14 +2,17 @@
 
 static int	prealable_check(t_game *game, char c, int y, int x)
 {
-	if (!ft_ischarset(c, "NSWE012 "))
+	(void)y;
+	(void)x;
+	if (!ft_ischarset(c, "NSWE0123 "))
 		return (0);
-	if (ft_ischarset(c, "NSWE") && !game->perso->y)
+	if (ft_ischarset(c, "NSWE") && !game->data_desc->player)
 	{
-		game->perso->y = (float)y;
-		game->perso->x = (float)x;
+		game->data_desc->player = TRUE;
+		game->data_desc->player_y = y;
+		game->data_desc->player_x = x;
 	}
-	else if (ft_ischarset(c, "NSWE") && game->perso->y)
+	else if (ft_ischarset(c, "NSWE") && game->data_desc->player)
 		return (0);
 	return (1);
 }
@@ -63,18 +66,23 @@ static int check_map(t_game *game)
 		j++;
 	}
 	free_strs(map);
-	if (!game->perso->y && !game->perso->x)
+	if (!game->data_desc->player)
 		return (not_a_good_file(MAP));
 	return (1);
 }
 
-static int	extract_loop(char ***ptr_map, char *line)
+static int	extract_loop(char ***ptr_map, char *line, int *max)
 {
 	char **map;
+	int l;
 
 	map = *ptr_map;
+	l = 0;
 	if (!ft_strcmp(line, "\n"))
 		return (free_strs(map), free(line), 0);
+	l = ft_strlen(line);
+	if (l > *max)
+		*max = l - 1;
 	if (!*map)
 	{
 		*map = ft_strdup(line);
@@ -93,8 +101,12 @@ int extract_map(t_game *game, int fd)
 {
 	char *line;
 	char **map;
+	int	  length;
+	int i;
 
 	line = get_next_line(fd);
+	length = 0;
+	i = 0;
 	if (!line)
 		return (0);
 	while (line && !ft_strcmp(line, "\n"))
@@ -109,11 +121,14 @@ int extract_map(t_game *game, int fd)
 		return (0);
 	while (line)
 	{
-		if (!extract_loop(&map, line))
+		if (!extract_loop(&map, line, &length))
 			return (0);
 		free(line);
 		line = get_next_line(fd);
+		i++;
 	}
 	game->data_desc->map = ft_add_strs_gc(game->gc_head, map);
+	game->data_desc->line_length = length;
+	game->data_desc->nb_line = i;
 	return (check_map(game));
 }

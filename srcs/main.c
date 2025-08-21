@@ -1,73 +1,51 @@
 #include "cub3d.h"
 
-int	init_base(t_game *game)
-{
-	game->gc = init_gc();
-	if (!game->gc)
-		return (0);
-	game->gc_head = &(game->gc);
-	game->mlx = ft_gc_addnode(game->gc_head, mlx_init());
-	if (!game->mlx)
-		return (ft_clear_gc(game->gc_head), 0);
-	game->win = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT,
-			"CUB3D");
-	if (!game->win)
-		return (ft_clear_gc(game->gc_head), 0);
-	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
-	if (!game->data_desc)
-		return (ft_clear_gc(game->gc_head), 0);
-	game->perso = ft_gcalloc(game->gc_head, sizeof(t_player));
-	if (!game->perso)
-		return (ft_clear_gc(game->gc_head), 0);
-	return (1);
-}
-
-int  close_all(t_game *game)
-{
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	ft_clear_gc(game->gc_head);
-	exit (0);
-}
-
-static int	key_pressed(int keycode, t_game *game)
+int	key_pressed(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 		close_all(game);
-	if (keycode == S_KEY)
-	{
-		ft_clear_background(game, MLX_BLACK);
-	}
+	else if (keycode == W_KEY)
+		game->player->key_up = TRUE;
+	else if (keycode == A_KEY)
+		game->player->key_left = TRUE;
+	else if (keycode == S_KEY)
+		game->player->key_down = TRUE;
+	else if (keycode == D_KEY)
+		game->player->key_right = TRUE;
+	else if (keycode == M_KEY)
+		game->minimap->disp_map = TRUE;
+	else if (keycode == CAPS && game->minimap->disp_map == TRUE)
+		game->minimap->disp_map = FALSE;
+	else if (keycode == CAPS && game->minimap->disp_map == FALSE)
+		game->minimap->disp_map = TRUE;
 	else
 		ft_printf("key unknown press code :%d\n", keycode);
 	return (0);
 }
 
-static int	key_released(int keycode, t_game *game)
+int	key_released(int keycode, t_game *game)
 {
-	(void)keycode;
-	(void)game;
+	if (keycode == W_KEY)
+		game->player->key_up = FALSE;
+	if (keycode == A_KEY)
+		game->player->key_left = FALSE;
+	if (keycode == S_KEY)
+		game->player->key_down = FALSE;
+	if (keycode == D_KEY)
+		game->player->key_right = FALSE;
+	if (keycode == M_KEY)
+		game->minimap->disp_map = FALSE;
 	return (0);
 }
 
 int	looping_hook(t_game *game)
 {
-	static int fc = 0;
-
-	fc++;
-	if (fc == 200000)
-	{
-		ft_clear_background(game, MLX_RED);
-	}
-	if (fc == 400000)
-	{
-		ft_clear_background(game, MLX_GREEN);
-	}
-	if (fc == 600000)
-	{
-		ft_clear_background(game, MLX_BLUE);
-		fc = 0;
-	}
+	ft_clear_background(game, MLX_BLACK);
+	if (game->minimap->disp_map == TRUE)
+		draw_map(game);
+	else
+		draw_minimap(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
 

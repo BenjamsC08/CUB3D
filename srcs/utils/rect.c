@@ -27,3 +27,17 @@ void	draw_rect(t_game *game, t_rect rect, int color)
 		}
 	}
 }
+
+void	draw_frect(t_game *game, t_rect rect, int color)
+{
+	int x;
+	int y;
+
+	y = -1;
+	while (++y < rect.h)
+	{
+		x = -1;
+		while (++x < rect.w)
+			ft_pixel_put(game, rect.x + x, rect.y + y, color);
+	}
+}

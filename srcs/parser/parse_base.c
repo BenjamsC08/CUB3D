@@ -80,3 +80,12 @@ int load_cub_file(t_game *game, char *str)
 	close (fd);
 	return (1);
 }
+
+int init_parser(t_game *game)
+{
+	game->data_desc = ft_gcalloc(game->gc_head, sizeof(t_data_desc));
+	if (!game->data_desc)
+		return (0);
+	game->data_desc->player = FALSE;
+	return (1);
+}

@@ -1,8 +1,5 @@
 
-
-pour check map 
-	- seul truc qui peut suivre 32 32, 1 sinon error
-	- seul truc qui peut suivre 0  0, 1 ou pos(N, S, W, E) donc !+1 et +1 == 32 ca degage
-	- seul truc qui peut suivre pos 0, 1 sinon error
-	
-
+minimap
+	draw the minimap in the corner top left
+	minimap center is always the player and 7-8 block around him so the map rotate not the player
+	give a color to 0 in the minimap to make the diff between 0 and ' '
