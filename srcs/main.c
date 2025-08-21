@@ -55,7 +55,15 @@ int	looping_hook(t_game *game)
 	static int fc = 0;
 
 	fc++;
-	if (fc == 500000)
+	if (fc == 200000)
+	{
+		ft_clear_background(game, MLX_RED);
+	}
+	if (fc == 400000)
+	{
+		ft_clear_background(game, MLX_GREEN);
+	}
+	if (fc == 600000)
 	{
 		ft_clear_background(game, MLX_BLUE);
 		fc = 0;
