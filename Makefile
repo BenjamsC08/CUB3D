@@ -10,6 +10,7 @@ INCLUDE_PATH = -I/usr/include -Imlx_linux -Ilibft/includes -Iincludes
 VALID = \033[1;32m
 NOTVALID = \033[1;31m
 LOADING = \033[1;33m
+INFOS = \033[1;36m
 RESET = \033[0m
 
 MLX_LINK = https://cdn.intra.42.fr/document/document/34997/minilibx-linux.tgz
@@ -36,9 +37,10 @@ libft/libft.a:
 	@$(MAKE) -C libft > /dev/null 2>&1
 
 %.o: %.c
-	$(CC) $(FLAGS) $(INCLUDE_PATH) -O3 -c $< -o $@
+	@$(CC) $(FLAGS) $(INCLUDE_PATH) -O3 -c $< -o $@
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIB_NAME) $(INCLUDE_PATH) -o $(NAME)
+	@echo "$(INFOS)Flags:$(FLAGS)\ninclude:$(INCLUDE_PATH)\nObj:$(OBJ)\nlib:$(LIB_NAME)$(RESET)\n";
+	@$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIB_NAME) $(INCLUDE_PATH) -o $(NAME)
 
 clean_mlx:
 	@printf "$(NOTVALID)Cleanning MLX \n$(RESET)";
