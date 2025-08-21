@@ -28,11 +28,11 @@ DL_MLX:
     fi
 
 MLX: DL_MLX
-	@printf "$(VALID)⇩ Make MLX\n$(LOADING)";
+	@printf "$(VALID)⇩ Make MLX\n$(RESET)";
 	@$(MAKE) -C mlx_linux > /dev/null 2>&1
 
 libft/libft.a:
-	@printf "$(VALID)⇩ Make Libft\n$(LOADING)";
+	@printf "$(VALID)⇩ Make Libft\n$(RESET)";
 	@$(MAKE) -C libft > /dev/null 2>&1
 
 %.o: %.c

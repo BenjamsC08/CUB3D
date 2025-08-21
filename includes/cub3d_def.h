@@ -68,7 +68,7 @@ typedef struct s_data_desc
 	int		player_y;
 	int		player_x;
 	char	**map;
-	int		length_line;
+	int		line_length;
 	int		nb_line;
 }			t_data_desc;
 

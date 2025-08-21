@@ -80,11 +80,11 @@ static int	extract_loop(char ***ptr_map, char *line, int *max)
 	l = 0;
 	if (!ft_strcmp(line, "\n"))
 		return (free_strs(map), free(line), 0);
+	l = ft_strlen(line);
+	if (l > *max)
+		*max = l - 1;
 	if (!*map)
 	{
-		l = ft_strlen(line);
-		if (l > *max)
-			*max = l;
 		*map = ft_strdup(line);
 		if (!*map)
 			return (free(map), 0);
@@ -128,7 +128,7 @@ int extract_map(t_game *game, int fd)
 		i++;
 	}
 	game->data_desc->map = ft_add_strs_gc(game->gc_head, map);
-	game->data_desc->length_line = length;
+	game->data_desc->line_length = length;
 	game->data_desc->nb_line = i;
 	return (check_map(game));
 }
