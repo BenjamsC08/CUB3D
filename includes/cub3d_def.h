@@ -25,10 +25,6 @@
 # define ESC 65307
 # define CAPS 65509
 
-# define TOP_RIGHT 0
-# define TOP_LEFT 1
-# define CENTER 2
-
 # define MLX_BLACK 0
 # define MLX_WHITE 16777215
 # define MLX_WHITE1 16119285
