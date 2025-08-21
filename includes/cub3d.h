@@ -24,6 +24,7 @@ void	ft_clear_background(t_game *game, int color);
 //						Figures
 t_rect	get_rect(int x, int y, int width, int height);
 void	draw_rect(t_game *game, t_rect rect, int color);
+void	draw_frect(t_game *game, t_rect rect, int color);
 
 /*													*/
 /*						Parsing						*/

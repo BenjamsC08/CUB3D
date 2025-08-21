@@ -23,7 +23,7 @@ void	draw_wall(t_game *game)
 			r.x = (pos[1] * w) + game->minimap->map.x;
 			r.y = (pos[0] * h) + game->minimap->map.y;
 			if (map[pos[0]][pos[1]] == '1')
-				draw_rect(game, r, MLX_RED);
+				draw_frect(game, r, MLX_RED);
 			if (map[pos[0]][pos[1]] == '2')
 				draw_rect(game, r, MLX_GREEN);
 			if (map[pos[0]][pos[1]] == '3')
