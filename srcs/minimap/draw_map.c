@@ -25,9 +25,9 @@ void	draw_wall(t_game *game)
 			if (map[pos[0]][pos[1]] == '1')
 				draw_frect(game, r, MLX_RED);
 			if (map[pos[0]][pos[1]] == '2')
-				draw_rect(game, r, MLX_GREEN);
+				draw_frect(game, r, MLX_YELLOW);
 			if (map[pos[0]][pos[1]] == '3')
-				draw_rect(game, r, MLX_YELLOW);
+				draw_rect(game, r, MLX_GREEN);
 			if (ft_ischarset(map[pos[0]][pos[1]], "NSWE"))
 				draw_rect(game, r, MLX_PURPLE);
 		}
@@ -36,8 +36,9 @@ void	draw_wall(t_game *game)
 
 void	draw_map(t_game *game)
 {
+	draw_frect(game, game->minimap->map, MLX_GREY);
 	draw_wall(game);
-	draw_rect(game, game->minimap->map, MLX_GREY);
+	draw_rect(game, game->minimap->map, MLX_WHITE1);
 }
 
 void	draw_minimap(t_game *game)
