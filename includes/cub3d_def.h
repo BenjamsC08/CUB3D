@@ -36,6 +36,10 @@
 # define MLX_PURPLE 10160621
 # define MLX_GREY 9868950
 
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
 
 typedef struct s_rect
 {
@@ -62,7 +66,7 @@ typedef struct s_data_desc
 	char	*path_ea;
 	t_byte	floor_color;
 	t_byte	ceiling_color;
-	t_bool	player;
+	char	player;
 	int		player_y;
 	int		player_x;
 	char	**map;
