@@ -76,6 +76,8 @@ int main(int argc, char **argv)
 		return (close_all(&game), 1);
 	if (!load_cub_file(&game, argv[1]))
 		return (close_all(&game));
+	if (!create_num(&game))
+		return (close_all(&game));
 	if (!start_time(&game))
 		return (close_all(&game));
 	game_loop(&game);

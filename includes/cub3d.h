@@ -29,7 +29,8 @@ void	draw_frect(t_game *game, t_rect rect, int color);
 //						Time
 int		set_start_time(t_game *game);
 t_uint	get_current_time(void);
-int	start_time(t_game *game);
+int		start_time(t_game *game);
+int		create_num(t_game *game);
 
 
 /*													*/

@@ -31,6 +31,11 @@ void	*time_job(void *ptr_game)
 	}
 }
 
+// void	mlx_put_timer(t_game *game, t_uint time, int color, t_rect rect)
+// {
+//
+// }
+
 int	start_time(t_game *game)
 {
 	t_timer *timer;

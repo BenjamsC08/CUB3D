@@ -122,6 +122,7 @@ typedef struct s_game
 	t_player	*player;
 	t_minimap	*minimap;
 	t_timer		*timer;
+	char		***tab_num;
 }				t_game;
 
 #endif
