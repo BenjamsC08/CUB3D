@@ -18,6 +18,8 @@ int	key_pressed(int keycode, t_game *game)
 		game->minimap->disp_map = FALSE;
 	else if (keycode == CAPS && game->minimap->disp_map == FALSE)
 		game->minimap->disp_map = TRUE;
+	else if (keycode == SPACE)
+		set_start_time(game);
 	else
 		ft_printf("key unknown press code :%d\n", keycode);
 	return (0);
@@ -73,6 +75,8 @@ int main(int argc, char **argv)
 	if (!good_file_ext(argv[1]))
 		return (close_all(&game), 1);
 	if (!load_cub_file(&game, argv[1]))
+		return (close_all(&game));
+	if (!start_time(&game))
 		return (close_all(&game));
 	game_loop(&game);
 	return (0);
