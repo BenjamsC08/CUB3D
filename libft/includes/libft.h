@@ -132,6 +132,9 @@ int				*ft_mintab(int *tab, unsigned int size);
 int				*ft_maxtab(int *tab, unsigned int size);
 void			ft_swap(int *a, int *b);
 void			ft_quicksort(int *tab, int length);
+void			ft_free_2d_int(int **tab, int y);
+int				**ft_1d_to_2d_int(const int *tab, int rows, int cols);
+
 /*
  *			put func (return how much char was writen)
  */

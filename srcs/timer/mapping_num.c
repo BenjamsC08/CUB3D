@@ -17,6 +17,12 @@ int create_num(t_game *game)
 
 //* transformer le char[][] en int [][] avec une func pour dupliquer les int */
 
+
+int	**cint_tabdup(const int tab[][])
+{
+	printf("size tab", sizeof(tab));
+}
+
 static int	  get_nb1(t_game *game)
 {
 	const char	nb1[5][3] = {{'1', '1', '1'},{'1', '0', '1'},{'1', '0', '1'},{'1', '0', '1'},{'1', '1', '1'}};
