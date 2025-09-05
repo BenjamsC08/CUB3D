@@ -1,7 +1,9 @@
 #ifndef CUB3D_DEF_H
 # define CUB3D_DEF_H
 
-# define EXT 1
+# include <pthread.h>
+
+# define EXT			1
 # define OPEN 2
 # define BAD_COLOR 3
 # define BAD_IMAGE 4
@@ -13,42 +15,47 @@
 
 # define BLOCK 40
 
-# define U_ARROW 65362
-# define L_ARROW 65361
-# define R_ARROW 65363
-# define D_ARROW 65364
-# define W_KEY 119
-# define A_KEY 97
-# define D_KEY 100
-# define S_KEY 115
-# define M_KEY 109
-# define ESC 65307
-# define CAPS 65509
-# define SHIFT 65505
 
-# define MLX_BLACK 0
-# define MLX_WHITE 16777215
-# define MLX_WHITE1 16119285
-# define MLX_RED 16711680
-# define MLX_BORDEAUX 5836288
-# define MLX_GREEN 65280
-# define MLX_BLUE 255
-# define MLX_YELLOW 16187136
-# define MLX_ORANGE 16075047
-# define MLX_PURPLE 10160621
-# define MLX_GREY 9868950
+# define SPACE			32
+# define A_KEY			97
+# define D_KEY			100
+# define M_KEY			109
+# define S_KEY			115
+# define W_KEY			119
+# define ESC			65307
+# define L_ARROW		65361
+# define U_ARROW		65362
+# define R_ARROW		65363
+# define D_ARROW		65364
+# define SHIFT			65505
+# define CAPS			65509
 
-# define NORTH 'N'
-# define SOUTH 'S'
-# define EAST 'E'
-# define WEST 'W'
 
-# define WALK_SPD 2.0f
-# define RUN_SPD 4.0f
+# define MLX_BLACK		0
+# define MLX_BLUE		255
+# define MLX_GREEN		65280
+# define MLX_BORDEAUX	5836288
+# define MLX_GREY		9868950
+# define MLX_PURPLE		10160621
+# define MLX_ORANGE		16075047
+# define MLX_WHITE1		16119285
+# define MLX_YELLOW		16187136
+# define MLX_RED		16711680
+# define MLX_WHITE		16777215
 
-# define DEGREE 0.0174532925f
+# define NORTH			'N'
+# define SOUTH			'S'
+# define EAST			'E'
+# define WEST			'W'
 
-# define FOV_DEG 70.0f
+# define WALK_SPD		2.0f
+# define RUN_SPD		4.0f
+
+# define DEGREE			0.0174532925f
+
+# define FOV_DEG		70.0f
+
+typedef pthread_mutex_t t_mtx;
 
 typedef struct s_vec
 {
@@ -76,6 +83,17 @@ typedef struct s_rect
 	int			w;
 	int			h;
 }				t_rect;
+
+typedef struct s_timer
+{
+	t_uint	  start_time;
+	t_uint	  max_time;
+	t_uint	  time;
+	t_bool	  run;
+	pthread_t thread;
+	t_mtx	  *mtx_time;
+	t_mtx	  *mtx_run;
+}			  t_timer;
 
 typedef struct s_data_img
 {
@@ -133,6 +151,8 @@ typedef struct s_game
 	t_data_img	*data_img;
 	t_player	*player;
 	t_minimap	*minimap;
+	t_timer		*timer;
+	int			***tab_num;
 }				t_game;
 
 #endif

@@ -11,6 +11,7 @@ int	looping_hook(t_game *game)
 	}
 	else
 		render_frame(game);
+	/*put_timer(game, 5, MLX_GREY, get_rect(W_WIDTH/2, W_HEIGHT/2, 200, 200));*/
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
@@ -40,6 +41,10 @@ int main(int argc, char **argv)
 		return (close_all(&game));
 	if (!init_player(&game))
 		return (close_all(&game), 0);
+	if (!create_num(&game))
+		return (close_all(&game));
+	if (!start_time(&game))
+		return (close_all(&game));
 	game_loop(&game);
 	return (0);
 }

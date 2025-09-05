@@ -74,7 +74,6 @@ static int	extract_loop(char ***ptr_map, char *line, int *max)
 	int l;
 
 	map = *ptr_map;
-	l = 0;
 	if (!ft_strcmp(line, "\n"))
 		return (free_strs(map), free(line), 0);
 	l = ft_strlen(line);

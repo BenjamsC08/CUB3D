@@ -1,7 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
 NAME = cub3D
-SRCS = srcs/destroy.c srcs/minimap/draw_map.c srcs/minimap/draw_minimap.c srcs/minimap/raycast.c srcs/parser/parse_error.c srcs/parser/parse_line.c srcs/parser/parse_base.c srcs/parser/parse_map.c srcs/utils/colors.c srcs/utils/pixel_put.c srcs/utils/rect.c srcs/utils/key_hook.c srcs/utils/move.c srcs/utils/camera.c srcs/utils/ray_dda.c srcs/utils/render.c srcs/init.c srcs/main.c
+SRCS = srcs/timer/mapping_num.c srcs/timer/timer.c srcs/minimap/draw_map.c srcs/minimap/draw_minimap.c srcs/minimap/raycast.c srcs/parser/parse_map.c srcs/parser/parse_error.c srcs/parser/parse_line.c srcs/parser/parse_base.c srcs/utils/colors.c srcs/utils/pixel_put.c srcs/utils/rect.c srcs/utils/camera.c srcs/utils/key_hook.c srcs/utils/move.c srcs/utils/ray_dda.c srcs/utils/render.c srcs/utils/time.c srcs/init.c srcs/destroy.c srcs/main.c
 OBJ = $(SRCS:.c=.o)
 LIB_PATH = -Lmlx_linux -Llibft -L/usr/lib
 LIB_NAME = -lmlx_Linux -lft -lXext -lX11 -lm -lz
@@ -40,7 +40,7 @@ libft/libft.a:
 	@$(CC) $(FLAGS) $(INCLUDE_PATH) -O3 -c $< -o $@
 $(NAME): $(OBJ)
 	@echo "$(INFOS)Flags:$(FLAGS)\ninclude:$(INCLUDE_PATH)\nObj:$(OBJ)\nlib:$(LIB_NAME)$(RESET)\n";
-	@$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIB_NAME) $(INCLUDE_PATH) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIB_NAME) $(INCLUDE_PATH) -o $(NAME)
 
 clean_mlx:
 	@printf "$(NOTVALID)Cleanning MLX \n$(RESET)";
@@ -66,4 +66,7 @@ re : fclean all
 rr: aclean all
 
 listC:
-	@find -wholename "./srcs/*.c" | cut -c 3- | tr '\n' ' '
+	@TRUC=$$(find -wholename "./srcs/*.c" | cut -c 3- | tr '\n' ' '); \
+	printf "🗅 $(INFOS)copy all C sources files into clipboard :\n$(RESET)$$TRUC\n"; \
+	echo $$TRUC | xclip -selection clipboard
+
