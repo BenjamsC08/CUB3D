@@ -28,8 +28,9 @@ void	draw_frect(t_game *game, t_rect rect, int color);
 //						Key hook
 int		key_pressed(int keycode, t_game *game);
 int		key_released(int keycode, t_game *game);
-//						Moves
+//						Moves/Rotations
 void	move(t_game *game);
+void	rotate(t_game *game);
 
 /*													*/
 /*						PARSING						*/

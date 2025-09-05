@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:17:55 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 06:49:10 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/05 07:49:23 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int	key_pressed(int keycode, t_game *game)
 		game->minimap->disp_map = TRUE;
 	else if (keycode == SHIFT)
 			game->player->run = TRUE;
+	else if (keycode == L_ARROW)
+			game->player->rot_left = TRUE;
+	else if (keycode == R_ARROW)
+			game->player->rot_right = TRUE;
 	else
 		ft_printf("key unknown press code :%d\n", keycode);
 	return (0);
@@ -56,5 +60,9 @@ int	key_released(int keycode, t_game *game)
 		game->minimap->disp_map = FALSE;
 	else if (keycode == SHIFT)
 			game->player->run = FALSE;
+	if (keycode == L_ARROW)
+			game->player->rot_left = FALSE;
+	if (keycode == R_ARROW)
+			game->player->rot_right = FALSE;
 	return (0);
 }

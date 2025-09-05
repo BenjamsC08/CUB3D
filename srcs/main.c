@@ -3,6 +3,7 @@
 int	looping_hook(t_game *game)
 {
 	move(game);
+	rotate(game);
 	ft_clear_background(game, MLX_BLACK);
 	if (game->minimap->disp_map == TRUE)
 		draw_map(game);

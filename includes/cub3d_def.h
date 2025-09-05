@@ -11,7 +11,7 @@
 # define W_WIDTH 2560
 # define W_HEIGHT 1370
 
-# define BLOCK 41
+# define BLOCK 40
 
 # define U_ARROW 65362
 # define L_ARROW 65361
@@ -43,8 +43,10 @@
 # define EAST 'E'
 # define WEST 'W'
 
-# define WALK_SPD 1
-# define RUN_SPD 3
+# define WALK_SPD 2
+# define RUN_SPD 6
+
+# define DEGREE 0.0174532925
 
 typedef struct s_rect
 {
@@ -89,8 +91,8 @@ typedef struct s_player
 	t_bool	key_down;
 	t_bool	key_left;
 	t_bool	key_right;
-	t_bool	left_rotate;
-	t_bool	right_rotate;
+	t_bool	rot_left;
+	t_bool	rot_right;
 }		  t_player;
 
 typedef struct s_minimap
