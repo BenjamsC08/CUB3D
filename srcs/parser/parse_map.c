@@ -2,15 +2,13 @@
 
 static int	prealable_check(t_game *game, char c, int y, int x)
 {
-	(void)y;
-	(void)x;
 	if (!ft_ischarset(c, "NSWE0123 "))
 		return (0);
 	if (ft_ischarset(c, "NSWE") && !game->data_desc->player)
 	{
-		game->data_desc->player = TRUE;
-		game->data_desc->player_y = y;
+		game->data_desc->player = c;
 		game->data_desc->player_x = x;
+		game->data_desc->player_y = y;
 	}
 	else if (ft_ischarset(c, "NSWE") && game->data_desc->player)
 		return (0);
@@ -22,23 +20,22 @@ static int	check_char(t_game *game, char **map, int j, int i)
 	if (!prealable_check(game, map[j][i], j, i))
 		return (0);
 	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
-		return (1);
-	else
-		return (1);
+		return (0);
+
 	if (ft_iswhitespace(map[j][i]))
 	{
-		if ((map[j][i - 0] && map[j][i - 1] != '1')
-			|| (map[j][i + 0] && map[j][i + 1] != '1')
-			|| (map[j - 0][i] && map[j - 1][i] != '1')
-			|| (map[j + 0][i] && map[j + 1][i] != '1'))
+		if ((map[j][i - 1] && map[j][i - 1] != '1')
+			|| (map[j][i + 1] && map[j][i + 1] != '1')
+			|| (map[j - 1][i] && map[j - 1][i] != '1')
+			|| (map[j + 1][i] && map[j + 1][i] != '1'))
 			return (0);
 	}
-	else if (map[j][i] == '1' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWE"))
+	else if (map[j][i] == '0' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWE"))
 	{
-		if ((!map[j][i - 0] || ft_iswhitespace(map[j][i - 1]))
-			|| (!map[j][i + 0] || ft_iswhitespace(map[j][i + 1]))
-			|| (!map[j - 0][i] || ft_iswhitespace(map[j - 1][i]))
-			|| (!map[j + 0][i] || ft_iswhitespace(map[j + 1][i])))
+		if ((!map[j][i - 1] || ft_iswhitespace(map[j][i - 1]))
+			|| (!map[j][i + 1] || ft_iswhitespace(map[j][i + 1]))
+			|| (!map[j - 1][i] || ft_iswhitespace(map[j - 1][i]))
+			|| (!map[j + 1][i] || ft_iswhitespace(map[j + 1][i])))
 			return (0);
 	}
 	return (1);
@@ -77,7 +74,6 @@ static int	extract_loop(char ***ptr_map, char *line, int *max)
 	int l;
 
 	map = *ptr_map;
-	l = 0;
 	if (!ft_strcmp(line, "\n"))
 		return (free_strs(map), free(line), 0);
 	l = ft_strlen(line);

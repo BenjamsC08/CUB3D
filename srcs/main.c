@@ -1,50 +1,17 @@
 #include "cub3d.h"
 
-int	key_pressed(int keycode, t_game *game)
-{
-	if (keycode == ESC)
-		close_all(game);
-	else if (keycode == W_KEY)
-		game->player->key_up = TRUE;
-	else if (keycode == A_KEY)
-		game->player->key_left = TRUE;
-	else if (keycode == S_KEY)
-		game->player->key_down = TRUE;
-	else if (keycode == D_KEY)
-		game->player->key_right = TRUE;
-	else if (keycode == M_KEY)
-		game->minimap->disp_map = TRUE;
-	else if (keycode == CAPS && game->minimap->disp_map == TRUE)
-		game->minimap->disp_map = FALSE;
-	else if (keycode == CAPS && game->minimap->disp_map == FALSE)
-		game->minimap->disp_map = TRUE;
-	else
-		ft_printf("key unknown press code :%d\n", keycode);
-	return (0);
-}
-
-int	key_released(int keycode, t_game *game)
-{
-	if (keycode == W_KEY)
-		game->player->key_up = FALSE;
-	if (keycode == A_KEY)
-		game->player->key_left = FALSE;
-	if (keycode == S_KEY)
-		game->player->key_down = FALSE;
-	if (keycode == D_KEY)
-		game->player->key_right = FALSE;
-	if (keycode == M_KEY)
-		game->minimap->disp_map = FALSE;
-	return (0);
-}
-
 int	looping_hook(t_game *game)
 {
+	moves(game);
 	ft_clear_background(game, MLX_BLACK);
 	if (game->minimap->disp_map == TRUE)
-		draw_map(game);
-	else
+	{
 		draw_minimap(game);
+		draw_rays(game);
+	}
+	else
+		render_frame(game);
+	/*put_timer(game, 5, MLX_GREY, get_rect(W_WIDTH/2, W_HEIGHT/2, 200, 200));*/
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
@@ -59,13 +26,11 @@ int game_loop(t_game *game)
 	return (0);
 }
 
-
 int main(int argc, char **argv)
 {
+	// Revoir/modifier algo DDA ?
 	t_game	game;
 
-	(void)argc;
-	(void)argv;
 	if (argc != 2)
 		return (not_a_good_file(0), 1);
 	if (!init_base(&game))
@@ -73,6 +38,12 @@ int main(int argc, char **argv)
 	if (!good_file_ext(argv[1]))
 		return (close_all(&game), 1);
 	if (!load_cub_file(&game, argv[1]))
+		return (close_all(&game));
+	if (!init_player(&game))
+		return (close_all(&game), 0);
+	if (!create_num(&game))
+		return (close_all(&game));
+	if (!start_time(&game))
 		return (close_all(&game));
 	game_loop(&game);
 	return (0);
