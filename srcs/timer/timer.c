@@ -12,7 +12,6 @@ void	*time_job(void *ptr_game)
 {
 	t_game *game;
 
-	ft_printf("hohohohooho\n");
 	game = (t_game *)ptr_game;
 	while (42)
 	{
@@ -28,7 +27,7 @@ void	*time_job(void *ptr_game)
 		game->timer->time = get_current_time() - game->timer->start_time;
 		if (game->timer->time >= game->timer->max_time)
 			return (pthread_mutex_unlock(game->timer->mtx_time), NULL);
-		ft_printf("time: %d:%d\r", game->timer->time/60, game->timer->time %60);
+		ft_printf("time: %d:%d\r", game->timer->max_time/60 -game->timer->time/60, game->timer->max_time%60 - game->timer->time %60);
 		pthread_mutex_unlock(game->timer->mtx_time);
 	}
 }
@@ -51,9 +50,7 @@ int	start_time(t_game *game)
 		return (0);
 	if (pthread_mutex_init(game->timer->mtx_run, NULL) != 0)
 		return (pthread_mutex_destroy(game->timer->mtx_time), 0);
-	ft_printf("ahahahhahah\n");
 	if (pthread_create(&game->timer->thread, NULL, time_job, (void *)game) != 0)
 		return (pthread_mutex_destroy(game->timer->mtx_run), pthread_mutex_destroy(game->timer->mtx_time), 0);
-	ft_printf("ahahahhahah\n");
 	return (1);
 }
