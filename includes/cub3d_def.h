@@ -43,65 +43,85 @@
 # define EAST 'E'
 # define WEST 'W'
 
-# define WALK_SPD 2
-# define RUN_SPD 6
+# define WALK_SPD 2.0f
+# define RUN_SPD 4.0f
 
-# define DEGREE 0.0174532925
+# define DEGREE 0.0174532925f
+
+# define FOV_DEG 60.0f
+
+typedef struct s_vec
+{
+	float		x;
+	float		y;
+}				t_vec;
+
+typedef struct s_ray
+{
+	t_vec		dir;     /* ray direction (en unites grille)    */
+	t_vec		delta;   /* deltaDistX/Y                        */
+	t_vec		side;    /* sideDistX/Y                         */
+	int			mapx;    /* cellule X en DDA                    */
+	int			mapy;    /* cellule Y en DDA                    */
+	int			stepx;   /* +1 / -1                             */
+	int			stepy;   /* +1 / -1                             */
+	int			side_hit;/* 0: mur vertical, 1: mur horizontal  */
+	char		tile;    /* 1 / 2 frappe (ou 0 si out of map)   */
+}				t_ray;
 
 typedef struct s_rect
 {
-	int x;
-	int y;
-	int w;
-	int h;
-}		t_rect;
+	int			x;
+	int			y;
+	int			w;
+	int			h;
+}				t_rect;
 
 typedef struct s_data_img
 {
-	int		bpp;
-	int		ll;
-	int		endian;
-	void	*img;
-	char	*addr;
-}			t_data_img;
+	int			bpp;
+	int			ll;
+	int			endian;
+	void		*img;
+	char		*addr;
+}				t_data_img;
 
 typedef struct s_data_desc
 {
-	char	*path_no;
-	char	*path_so;
-	char	*path_we;
-	char	*path_ea;
-	t_byte	floor_color;
-	t_byte	ceiling_color;
-	char	player;
-	int		player_y;
-	int		player_x;
-	char	**map;
-	int		line_length;
-	int		nb_line;
-}			t_data_desc;
+	char		*path_no;
+	char		*path_so;
+	char		*path_we;
+	char		*path_ea;
+	t_byte		floor_color;
+	t_byte		ceiling_color;
+	char		player;
+	int			player_y;
+	int			player_x;
+	char		**map;
+	int			line_length;
+	int			nb_line;
+}				t_data_desc;
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	angle;
-	t_bool	run;
-	t_bool	key_up;
-	t_bool	key_down;
-	t_bool	key_left;
-	t_bool	key_right;
-	t_bool	rot_left;
-	t_bool	rot_right;
-}		  t_player;
+	float		x;
+	float		y;
+	float		angle;
+	t_bool		run;
+	t_bool		key_up;
+	t_bool		key_down;
+	t_bool		key_left;
+	t_bool		key_right;
+	t_bool		rot_left;
+	t_bool		rot_right;
+}				t_player;
 
 typedef struct s_minimap
 {
-	t_bool disp_map;
-	t_rect map;
-	t_rect minimap;
-	// t_rect player;
-}			t_minimap;
+	t_bool		disp_map;
+	t_rect		map;
+	t_rect		minimap;
+}				t_minimap;
 
 typedef struct s_game
 {

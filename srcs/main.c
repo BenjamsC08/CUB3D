@@ -2,13 +2,15 @@
 
 int	looping_hook(t_game *game)
 {
-	move(game);
-	rotate(game);
+	moves(game);
 	ft_clear_background(game, MLX_BLACK);
 	if (game->minimap->disp_map == TRUE)
-		draw_map(game);
-	else
+	{
 		draw_minimap(game);
+		draw_rays(game);
+	}
+	else
+		render_frame(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }
@@ -25,10 +27,9 @@ int game_loop(t_game *game)
 
 int main(int argc, char **argv)
 {
+	// Revoir/modifier algo DDA ?
 	t_game	game;
 
-	(void)argc;
-	(void)argv;
 	if (argc != 2)
 		return (not_a_good_file(0), 1);
 	if (!init_base(&game))
@@ -39,7 +40,6 @@ int main(int argc, char **argv)
 		return (close_all(&game));
 	if (!init_player(&game))
 		return (close_all(&game), 0);
-	/*game.minimap->disp_map = TRUE;*/
 	game_loop(&game);
 	return (0);
 }

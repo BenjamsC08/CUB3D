@@ -3,6 +3,7 @@
 
 # include <mlx.h>
 # include <stdlib.h>
+# include <float.h>
 # include <math.h>
 # include "libft.h"
 
@@ -11,7 +12,6 @@
 /*													*/
 /*						UTILS						*/
 /*													*/
-
 //						Colors
 int		encode_rgb(t_byte r, t_byte g, t_byte b);
 t_byte	get_r(int rgb);
@@ -29,8 +29,7 @@ void	draw_frect(t_game *game, t_rect rect, int color);
 int		key_pressed(int keycode, t_game *game);
 int		key_released(int keycode, t_game *game);
 //						Moves/Rotations
-void	move(t_game *game);
-void	rotate(t_game *game);
+void	moves(t_game *g);
 
 /*													*/
 /*						PARSING						*/
@@ -51,13 +50,18 @@ int		extract_map(t_game *game, int fd);
 /*													*/
 /*						MINIMAP						*/
 /*													*/
-void		init_map(t_game *game);
-void		init_minimap(t_game *game);
+void	init_map(t_game *game);
+void	init_minimap(t_game *game);
 //						Draw
 void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
 //						Raycast
-void	draw_rays(t_game *game, float player_x, float player_y);
+void	compute_cam_vectors(t_player *p, t_vec *dir, t_vec *plane);
+void	draw_rays(t_game *game);
+void	ray_setup(t_game *game, t_ray *ray, int screen_x);
+void	ray_run_dda(t_game *game, t_ray *r);
+void	render_frame(t_game *game);
+float	ray_perp_dist(t_game *game, t_ray *r);
 
 /*													*/
 /*						INIT						*/
@@ -68,6 +72,6 @@ int		init_player(t_game *game);
 /*													*/
 /*						DESTROY						*/
 /*													*/
-int  close_all(t_game *game);
+int		close_all(t_game *game);
 
 #endif
