@@ -28,19 +28,14 @@ int	init_player(t_game *game)
 		return (0);
 	game->player->x = game->data_desc->player_x * BLOCK + BLOCK / 2.0;
 	game->player->y = game->data_desc->player_y * BLOCK + BLOCK / 2.0;
-	/*dprintf(2, "DEBUG : Center of player in gird : [%d, %d]\nPlayer in 2D plan : [%f, %f]\n", game->data_desc->player_x, game->data_desc->player_y, game->player->x, game->player->y);*/
 	if (game->data_desc->player == 'N')
-		game->player->angle = PI / 2;
+		game->player->angle = -PI / 2.0f;
 	else if (game->data_desc->player == 'S')
-		game->player->angle = (3 * PI) / 2;
+		game->player->angle = PI / 2.0f;
 	else if (game->data_desc->player == 'E')
-		game->player->angle = 2 * PI;
+		game->player->angle = 0.0f;
 	else if (game->data_desc->player == 'W')
 		game->player->angle = PI;
-	/*game->player->key_up = FALSE;*/
-	/*game->player->key_down = FALSE;*/
-	/*game->player->key_left = FALSE;*/
-	/*game->player->key_right = FALSE;*/
 	return (1);
 }
 

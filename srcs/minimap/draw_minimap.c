@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 01:38:54 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 06:27:53 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/05 08:48:24 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_minimap(t_game *game)
 				r.x = game->player->x - (BLOCK / 2);
 				r.y = game->player->y - (BLOCK / 2);
 				draw_rays(game, game->player->x, game->player->y);
-				draw_frect(game, r, MLX_PURPLE);
+				draw_rect(game, r, MLX_PURPLE);
 			}
 		}
 	}

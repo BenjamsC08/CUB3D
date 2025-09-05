@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:28:33 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 07:56:33 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/05 09:26:37 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ void	move(t_game *game)
 
 void	rotate(t_game *game)
 {
-	dprintf(2, "DEBUG : player angle = %f\n", game->player->angle);
+	/*dprintf(2, "DEBUG : player angle = %f\n", game->player->angle);*/
 	if (game->player->rot_left == TRUE)
 		game->player->angle += DEGREE;
 	if (game->player->rot_right == TRUE)
 		game->player->angle -= DEGREE;
-	if (game->player->angle > 6.2831853072)
-		game->player->angle -= 6.2831853072;
-	if (game->player->angle < 0)
-		game->player->angle += 6.2831853072;
-
+	if (game->player->angle > 2.0f * PI)
+		game->player->angle -= 2.0f * PI;
+	if (game->player->angle < 0.0f)
+		game->player->angle += 2.0f * PI;
 }
