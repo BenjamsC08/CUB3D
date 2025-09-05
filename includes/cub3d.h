@@ -9,7 +9,7 @@
 # include "cub3d_def.h"
 
 /*													*/
-/*						Utiles						*/
+/*						UTILS						*/
 /*													*/
 
 //						Colors
@@ -28,10 +28,11 @@ void	draw_frect(t_game *game, t_rect rect, int color);
 //						Key hook
 int		key_pressed(int keycode, t_game *game);
 int		key_released(int keycode, t_game *game);
-
+//						Moves
+void	move(t_game *game);
 
 /*													*/
-/*						Parsing						*/
+/*						PARSING						*/
 /*													*/
 int		init_parser(t_game *game);
 //						Base
@@ -47,7 +48,7 @@ int		check_line(char *line, t_game *game);
 int		extract_map(t_game *game, int fd);
 
 /*													*/
-/*						Minimap						*/
+/*						MINIMAP						*/
 /*													*/
 void		init_map(t_game *game);
 void		init_minimap(t_game *game);

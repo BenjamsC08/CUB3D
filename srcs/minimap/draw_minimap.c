@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 01:38:54 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 03:10:32 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/05 06:27:53 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,24 @@ void	draw_minimap(t_game *game)
 		j = -1;
 		while (minimap[i][++j])
 		{
-			r.x = (j * BLOCK) + game->minimap->minimap.x;
-			r.y = (i * BLOCK) + game->minimap->minimap.y;
+			r.x = (j * BLOCK)/* + game->minimap->minimap.x*/;
+			r.y = (i * BLOCK)/* + game->minimap->minimap.y*/;
 			if (minimap[i][j] == '1')
-				draw_frect(game, r, MLX_RED);
+				draw_frect(game, r, MLX_GREY);
 			if (minimap[i][j] == '2')
-				draw_rect(game, r, MLX_GREEN);
+				draw_frect(game, r, MLX_BORDEAUX);
 			if (minimap[i][j] == '3')
-				draw_rect(game, r, MLX_YELLOW);
+				draw_rect(game, r, MLX_BORDEAUX);
 			if (ft_ischarset(minimap[i][j], "NSWE"))
 			{
+				r.x = game->player->x - (BLOCK / 2);
+				r.y = game->player->y - (BLOCK / 2);
 				draw_rays(game, game->player->x, game->player->y);
 				draw_frect(game, r, MLX_PURPLE);
 			}
 		}
 	}
-	draw_rect(game, game->minimap->minimap, MLX_GREY);
+	draw_rect(game, game->minimap->minimap, MLX_YELLOW);
 }
 
 void	init_minimap(t_game *game)

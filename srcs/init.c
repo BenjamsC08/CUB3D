@@ -37,6 +37,10 @@ int	init_player(t_game *game)
 		game->player->angle = 2 * PI;
 	else if (game->data_desc->player == 'W')
 		game->player->angle = PI;
+	/*game->player->key_up = FALSE;*/
+	/*game->player->key_down = FALSE;*/
+	/*game->player->key_left = FALSE;*/
+	/*game->player->key_right = FALSE;*/
 	return (1);
 }
 

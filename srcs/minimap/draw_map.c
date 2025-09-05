@@ -23,16 +23,16 @@ void	draw_map(t_game *game)
 			r.x = (pos[1] * w) + game->minimap->map.x;
 			r.y = (pos[0] * h) + game->minimap->map.y;
 			if (map[pos[0]][pos[1]] == '1')
-				draw_frect(game, r, MLX_RED);
+				draw_frect(game, r, MLX_GREY);
 			if (map[pos[0]][pos[1]] == '2')
-				draw_rect(game, r, MLX_GREEN);
+				draw_frect(game, r, MLX_BORDEAUX);
 			if (map[pos[0]][pos[1]] == '3')
-				draw_rect(game, r, MLX_YELLOW);
+				draw_rect(game, r, MLX_BORDEAUX);
 			if (ft_ischarset(map[pos[0]][pos[1]], "NSWE"))
 				draw_rect(game, r, MLX_PURPLE);
 		}
 	}
-	draw_rect(game, game->minimap->map, MLX_GREY);
+	draw_rect(game, game->minimap->map, MLX_YELLOW);
 }
 
 void init_map(t_game *game)

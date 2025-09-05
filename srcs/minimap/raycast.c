@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 23:31:42 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 03:11:18 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/05 05:35:53 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void	draw_rays(t_game *game, float player_x, float player_y)
 	{
 		ft_pixel_put(game, ray_x, ray_y, MLX_GREEN);
 		ray_x += cos_angle;
-		ray_y += sin_angle;
+		ray_y -= sin_angle;
 	}
 }

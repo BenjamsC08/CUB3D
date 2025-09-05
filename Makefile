@@ -1,7 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g3
 NAME = cub3D
-SRCS = srcs/destroy.c srcs/minimap/draw_map.c srcs/minimap/draw_minimap.c srcs/minimap/raycast.c srcs/parser/parse_error.c srcs/parser/parse_line.c srcs/parser/parse_base.c srcs/parser/parse_map.c srcs/utils/colors.c srcs/utils/pixel_put.c srcs/utils/rect.c srcs/main.c srcs/init.c srcs/utils/key_hook.c
+SRCS = srcs/destroy.c srcs/minimap/draw_map.c srcs/minimap/draw_minimap.c srcs/minimap/raycast.c srcs/parser/parse_error.c srcs/parser/parse_line.c srcs/parser/parse_base.c srcs/parser/parse_map.c srcs/utils/colors.c srcs/utils/pixel_put.c srcs/utils/rect.c srcs/main.c srcs/init.c srcs/utils/key_hook.c srcs/utils/move.c
 OBJ = $(SRCS:.c=.o)
 LIB_PATH = -Lmlx_linux -Llibft -L/usr/lib
 LIB_NAME = -lmlx_Linux -lft -lXext -lX11 -lm -lz

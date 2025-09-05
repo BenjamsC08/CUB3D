@@ -11,7 +11,7 @@
 # define W_WIDTH 2560
 # define W_HEIGHT 1370
 
-# define BLOCK 47
+# define BLOCK 41
 
 # define U_ARROW 65362
 # define L_ARROW 65361
@@ -24,11 +24,13 @@
 # define M_KEY 109
 # define ESC 65307
 # define CAPS 65509
+# define SHIFT 65505
 
 # define MLX_BLACK 0
 # define MLX_WHITE 16777215
 # define MLX_WHITE1 16119285
 # define MLX_RED 16711680
+# define MLX_BORDEAUX 5836288
 # define MLX_GREEN 65280
 # define MLX_BLUE 255
 # define MLX_YELLOW 16187136
@@ -42,7 +44,7 @@
 # define WEST 'W'
 
 # define WALK_SPD 1
-# define RUN_SPD 2
+# define RUN_SPD 3
 
 typedef struct s_rect
 {
@@ -82,6 +84,7 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	angle;
+	t_bool	run;
 	t_bool	key_up;
 	t_bool	key_down;
 	t_bool	key_left;
