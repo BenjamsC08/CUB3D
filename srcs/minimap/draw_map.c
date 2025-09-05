@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-#include <stdio.h>
-
 void	draw_map(t_game *game)
 {
 	const char  **map = (const char **)game->data_desc->map;

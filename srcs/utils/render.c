@@ -12,6 +12,25 @@
 
 #include "cub3d.h"
 
+/**
+ * @brief  Draw one vertical wall slice at a given screen column.
+ *
+ * Renders a vertical segment representing a wall hit by the ray at column
+ * `screen_x`, using the perpendicular distance to compute projected height.
+ * The segment is vertically centered and clamped to the window bounds.
+ * Color depends on the side hit (e.g., darker for Y-side to suggest shading).
+ *
+ * @param  game        Global game context (framebuffer and draw helpers).
+ * @param  screen_x    Screen column (0..W_WIDTH-1) where to draw the slice.
+ * @param  perp_dist   Ray perpendicular distance used for perspective scaling.
+ * @param  side_hit    Side flag from DDA (0 = X-side, 1 = Y-side).
+ * @return None.
+ *
+ * @note   A tiny epsilon clamps very small distances to avoid division by zero.
+ * @warning Uses flat colors; no texture sampling or z-buffering here.
+ * @pre    Framebuffer is valid; W_WIDTH/W_HEIGHT/MLX_* constants are defined.
+ * @post   A vertical line is drawn between draw_start and draw_end at screen_x.
+ */
 static void	draw_vertical_slice(t_game *game, int screen_x, float perp_dist,
 		int side_hit)
 {
@@ -40,6 +59,21 @@ static void	draw_vertical_slice(t_game *game, int screen_x, float perp_dist,
 	}
 }
 
+/**
+ * @brief  Render a full frame by raycasting each screen column.
+ *
+ * For each column, sets up and runs DDA to find the first wall hit, computes
+ * the perpendicular distance, and draws the corresponding vertical slice.
+ * Camera basis vectors are computed once per frame from the player's state.
+ *
+ * @param  game  Global game context (player, map, raycast helpers, draw API).
+ * @return None.
+ *
+ * @note   Columns without a tile hit are skipped (nothing drawn for that x).
+ * @warning Runtime scales linearly with W_WIDTH.
+ * @pre    Player position/angle and map data are initialized and consistent.
+ * @post   The frame buffer contains a column-wise raycast of the current scene.
+ */
 void	render_frame(t_game *game)
 {
 	t_vec	dir_vec;
