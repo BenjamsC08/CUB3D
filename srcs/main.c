@@ -20,7 +20,6 @@ int	key_pressed(int keycode, t_game *game)
 		game->minimap->disp_map = TRUE;
 	else if (keycode == SPACE)
 	{
-		ft_printf("key known\n");
 		set_start_time(game);
 	}
 	else
@@ -50,6 +49,7 @@ int	looping_hook(t_game *game)
 		draw_map(game);
 	else
 		draw_minimap(game);
+	/*put_timer(game, 5, MLX_GREY, get_rect(W_WIDTH/2, W_HEIGHT/2, 200, 200));*/
 	mlx_put_image_to_window(game->mlx, game->win, game->data_img->img, 0, 0);
 	return (0);
 }

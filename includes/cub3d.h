@@ -22,6 +22,7 @@ t_byte	get_b(int rgb);
 //						Disp
 void	ft_pixel_put(t_game *game, int x, int y, int color);
 void	ft_clear_background(t_game *game, int color);
+void	put_timer(t_game *game, t_uint size, int color, t_rect frame);
 //						Figures
 t_rect	get_rect(int x, int y, int width, int height);
 void	draw_rect(t_game *game, t_rect rect, int color);
