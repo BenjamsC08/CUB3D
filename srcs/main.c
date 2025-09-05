@@ -1,43 +1,5 @@
 #include "cub3d.h"
 
-int	key_pressed(int keycode, t_game *game)
-{
-	if (keycode == ESC)
-		close_all(game);
-	else if (keycode == W_KEY)
-		game->player->key_up = TRUE;
-	else if (keycode == A_KEY)
-		game->player->key_left = TRUE;
-	else if (keycode == S_KEY)
-		game->player->key_down = TRUE;
-	else if (keycode == D_KEY)
-		game->player->key_right = TRUE;
-	else if (keycode == M_KEY)
-		game->minimap->disp_map = TRUE;
-	else if (keycode == CAPS && game->minimap->disp_map == TRUE)
-		game->minimap->disp_map = FALSE;
-	else if (keycode == CAPS && game->minimap->disp_map == FALSE)
-		game->minimap->disp_map = TRUE;
-	else
-		ft_printf("key unknown press code :%d\n", keycode);
-	return (0);
-}
-
-int	key_released(int keycode, t_game *game)
-{
-	if (keycode == W_KEY)
-		game->player->key_up = FALSE;
-	if (keycode == A_KEY)
-		game->player->key_left = FALSE;
-	if (keycode == S_KEY)
-		game->player->key_down = FALSE;
-	if (keycode == D_KEY)
-		game->player->key_right = FALSE;
-	if (keycode == M_KEY)
-		game->minimap->disp_map = FALSE;
-	return (0);
-}
-
 int	looping_hook(t_game *game)
 {
 	ft_clear_background(game, MLX_BLACK);
@@ -58,7 +20,6 @@ int game_loop(t_game *game)
 	mlx_loop(game->mlx);
 	return (0);
 }
-
 
 int main(int argc, char **argv)
 {

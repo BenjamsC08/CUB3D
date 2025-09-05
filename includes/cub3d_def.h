@@ -41,6 +41,9 @@
 # define EAST 'E'
 # define WEST 'W'
 
+# define WALK_SPD 1
+# define RUN_SPD 2
+
 typedef struct s_rect
 {
 	int x;

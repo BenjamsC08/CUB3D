@@ -25,6 +25,10 @@ void	ft_clear_background(t_game *game, int color);
 t_rect	get_rect(int x, int y, int width, int height);
 void	draw_rect(t_game *game, t_rect rect, int color);
 void	draw_frect(t_game *game, t_rect rect, int color);
+//						Key hook
+int		key_pressed(int keycode, t_game *game);
+int		key_released(int keycode, t_game *game);
+
 
 /*													*/
 /*						Parsing						*/
