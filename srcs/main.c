@@ -74,6 +74,9 @@ int main(int argc, char **argv)
 		return (close_all(&game), 1);
 	if (!load_cub_file(&game, argv[1]))
 		return (close_all(&game));
+	if (!init_player(&game))
+		return (close_all(&game), 0);
+	/*game.minimap->disp_map = TRUE;*/
 	game_loop(&game);
 	return (0);
 }

@@ -8,10 +8,10 @@
 # define LINE 5
 # define MAP 6
 
-# define W_WIDTH 1280
-# define W_HEIGHT 720
+# define W_WIDTH 2560
+# define W_HEIGHT 1370
 
-# define BLOCK 16
+# define BLOCK 47
 
 # define U_ARROW 65362
 # define L_ARROW 65361

@@ -45,15 +45,19 @@ int		extract_map(t_game *game, int fd);
 /*													*/
 /*						Minimap						*/
 /*													*/
-int		init_minimap(t_game *game);
+void		init_map(t_game *game);
+void		init_minimap(t_game *game);
 //						Draw
 void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
+//						Raycast
+void	draw_rays(t_game *game, float player_x, float player_y);
 
 /*													*/
 /*						INIT						*/
 /*													*/
 int		init_base(t_game *game);
+int		init_player(t_game *game);
 
 /*													*/
 /*						DESTROY						*/

@@ -19,11 +19,35 @@ static int init_mlx(t_game *game)
 	return (1);
 }
 
+#include <stdio.h> // DEBUG
+
 int	init_player(t_game *game)
 {
 	game->player = ft_gcalloc(game->gc_head, sizeof(t_player));
 	if (!game->player)
 		return (0);
+	game->player->x = game->data_desc->player_x * BLOCK + BLOCK / 2.0;
+	game->player->y = game->data_desc->player_y * BLOCK + BLOCK / 2.0;
+	/*dprintf(2, "DEBUG : Center of player in gird : [%d, %d]\nPlayer in 2D plan : [%f, %f]\n", game->data_desc->player_x, game->data_desc->player_y, game->player->x, game->player->y);*/
+	if (game->data_desc->player == 'N')
+		game->player->angle = PI / 2;
+	else if (game->data_desc->player == 'S')
+		game->player->angle = (3 * PI) / 2;
+	else if (game->data_desc->player == 'E')
+		game->player->angle = 2 * PI;
+	else if (game->data_desc->player == 'W')
+		game->player->angle = PI;
+	return (1);
+}
+
+static int  init_maps(t_game *game)
+{
+	game->minimap = ft_gcalloc(game->gc_head, sizeof(t_minimap));
+	if (!game->minimap)
+		return (0);
+	init_map(game);
+	init_minimap(game);
+	game->minimap->disp_map = FALSE;
 	return (1);
 }
 
@@ -37,9 +61,7 @@ int	init_base(t_game *game)
 		return (ft_clear_gc(game->gc_head), 0);
 	if (!init_parser(game))
 		return (close_all(game), 0);
-	if (!init_player(game))
-		return (close_all(game), 0);
-	if (!init_minimap(game))
+	if (!init_maps(game))
 		return (close_all(game), 0);
 	return (1);
 }

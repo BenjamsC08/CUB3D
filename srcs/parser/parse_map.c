@@ -2,15 +2,13 @@
 
 static int	prealable_check(t_game *game, char c, int y, int x)
 {
-	(void)y;
-	(void)x;
 	if (!ft_ischarset(c, "NSWE0123 "))
 		return (0);
 	if (ft_ischarset(c, "NSWE") && !game->data_desc->player)
 	{
-		game->data_desc->player = c; // mettre NSWE 
-		game->data_desc->player_y = y;
+		game->data_desc->player = c;
 		game->data_desc->player_x = x;
+		game->data_desc->player_y = y;
 	}
 	else if (ft_ischarset(c, "NSWE") && game->data_desc->player)
 		return (0);
