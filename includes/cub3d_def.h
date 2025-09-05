@@ -48,7 +48,7 @@
 
 # define DEGREE 0.0174532925f
 
-# define FOV_DEG 60.0f
+# define FOV_DEG 70.0f
 
 typedef struct s_vec
 {
