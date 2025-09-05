@@ -66,7 +66,7 @@ re : fclean all
 rr: aclean all
 
 listC:
-	@TRUC=$$(find -wholename "./srcs/*.c" | cut -c 3- | tr '\n' ' '); \
-	printf "🗅 $(INFOS)copy all C sources files into clipboard :\n$(RESET)$$TRUC\n"; \
-	echo $$TRUC | xclip -selection clipboard
+	@LIST=$$(find -wholename "./srcs/*.c" | cut -c 3- | tr '\n' ' '); \
+	printf "🗅 $(INFOS)copy all C sources files into clipboard :\n$(RESET)$$LIST\n"; \
+	echo $$LIST | xclip -selection clipboard
 
