@@ -18,7 +18,6 @@ int convert_colors(char **strs, t_game *game, char c)
 	int color;
 
 	i = 0;
-	tmp = 0;
 	color = 0;
 	while (i < 3)
 	{

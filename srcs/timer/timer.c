@@ -12,6 +12,7 @@ void	*time_job(void *ptr_game)
 {
 	t_game *game;
 
+	ft_printf("hohohohooho\n");
 	game = (t_game *)ptr_game;
 	while (42)
 	{
@@ -21,6 +22,7 @@ void	*time_job(void *ptr_game)
 		if (!game->timer->start_time)
 		{
 			pthread_mutex_unlock(game->timer->mtx_time);
+			usleep(10);
 			continue ;
 		}
 		game->timer->time = get_current_time() - game->timer->start_time;
@@ -31,33 +33,27 @@ void	*time_job(void *ptr_game)
 	}
 }
 
-// void	mlx_put_timer(t_game *game, t_uint time, int color, t_rect rect)
-// {
-//
-// }
-
 int	start_time(t_game *game)
 {
-	t_timer *timer;
-
-	timer = ft_gcalloc(game->gc_head, sizeof(t_timer));
-	if (!timer)
+	game->timer = ft_gcalloc(game->gc_head, sizeof(t_timer));
+	if (!game->timer)
 		return (0);
-	timer->run = TRUE;
-	timer->start_time = 0;
-	timer->max_time = 130;
-	timer->mtx_time = ft_gcalloc(game->gc_head, sizeof(t_mtx));
-	if (!timer->mtx_time)
+	game->timer->mtx_time = ft_gcalloc(game->gc_head, sizeof(t_mtx));
+	if (!game->timer->mtx_time)
 		return (0);
-	if (pthread_mutex_init(timer->mtx_time, NULL) != 0)
-		return (pthread_mutex_destroy(timer->mtx_time), 0);
-	timer->mtx_run = ft_gcalloc(game->gc_head, sizeof(t_mtx));
-	if (!timer->mtx_run)
-		return (pthread_mutex_destroy(timer->mtx_time), 0);
-	if (pthread_mutex_init(timer->mtx_run, NULL) != 0)
-		return (pthread_mutex_destroy(timer->mtx_time), 0);
-	if (pthread_create(&timer->thread, NULL, time_job, (void *)game) != 0)
-		return (pthread_mutex_destroy(timer->mtx_run), pthread_mutex_destroy(timer->mtx_time), 0);
-	game->timer = timer;
+	game->timer->mtx_run = ft_gcalloc(game->gc_head, sizeof(t_mtx));
+	if (!game->timer->mtx_run)
+		return (0);
+	game->timer->run = TRUE;
+	game->timer->start_time = 0;
+	game->timer->max_time = 130;
+	if (pthread_mutex_init(game->timer->mtx_time, NULL) != 0)
+		return (0);
+	if (pthread_mutex_init(game->timer->mtx_run, NULL) != 0)
+		return (pthread_mutex_destroy(game->timer->mtx_time), 0);
+	ft_printf("ahahahhahah\n");
+	if (pthread_create(&game->timer->thread, NULL, time_job, (void *)game) != 0)
+		return (pthread_mutex_destroy(game->timer->mtx_run), pthread_mutex_destroy(game->timer->mtx_time), 0);
+	ft_printf("ahahahhahah\n");
 	return (1);
 }

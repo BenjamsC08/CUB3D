@@ -19,7 +19,10 @@ int	key_pressed(int keycode, t_game *game)
 	else if (keycode == CAPS && game->minimap->disp_map == FALSE)
 		game->minimap->disp_map = TRUE;
 	else if (keycode == SPACE)
+	{
+		ft_printf("key known\n");
 		set_start_time(game);
+	}
 	else
 		ft_printf("key unknown press code :%d\n", keycode);
 	return (0);
