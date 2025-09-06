@@ -55,6 +55,7 @@
 
 # define WALK_SPD		2.0f
 # define RUN_SPD		4.0f
+# define SENSI			120.0f
 
 # define DEGREE			0.0174532925f
 

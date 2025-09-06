@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:28:33 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/06 06:32:25 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/06 10:57:47 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ static void	move(t_game *game)
 static void	apply_rotate(t_game *game)
 {
 	if (game->player->rot_left == TRUE)
-		game->player->angle -= DEGREE;
+		game->player->angle -= DEGREE * (SENSI / 100);
 	if (game->player->rot_right == TRUE)
-		game->player->angle += DEGREE;
+		game->player->angle += DEGREE * (SENSI / 100);
 	if (game->player->angle > 2.0f * PI)
 		game->player->angle -= 2.0f * PI;
 	if (game->player->angle < 0.0f)
