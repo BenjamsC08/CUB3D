@@ -3,7 +3,7 @@
 
 # include <pthread.h>
 
-# define EXT			1
+# define EXT 1
 # define OPEN 2
 # define BAD_COLOR 3
 # define BAD_IMAGE 4
@@ -22,20 +22,18 @@
 # define M_KEY			109
 # define S_KEY			115
 # define W_KEY			119
+# define BACKSPACE		65288
 # define ESC			65307
 # define L_ARROW		65361
 # define U_ARROW		65362
 # define R_ARROW		65363
 # define D_ARROW		65364
+# define PAD_4			65430
+# define PAD_8			65431
+# define PAD_6			65432
+# define PAD_2			65433
 # define SHIFT			65505
 # define CAPS			65509
-
-
-# define PAD_2 65433
-# define PAD_4 65430
-# define PAD_6 65432
-# define PAD_8 65431
-# define BACKSPACE 65288
 
 
 # define MLX_BLACK		0
@@ -61,6 +59,7 @@
 # define DEGREE			0.0174532925f
 
 # define FOV_DEG		70.0f
+
 
 typedef pthread_mutex_t t_mtx;
 
