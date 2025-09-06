@@ -30,6 +30,8 @@ void	*time_job(void *ptr_game)
 		ft_printf("time: %d:%d\r", game->timer->max_time/60 -game->timer->time/60, game->timer->max_time%60 - game->timer->time %60);
 		pthread_mutex_unlock(game->timer->mtx_time);
 	}
+	pthread_mutex_destroy(game->timer->mtx_run);
+	pthread_mutex_destroy(game->timer->mtx_time);
 }
 
 int	start_time(t_game *game)
@@ -52,6 +54,7 @@ int	start_time(t_game *game)
 		return (pthread_mutex_destroy(game->timer->mtx_time), 0);
 	if (pthread_create(&game->timer->thread, NULL, time_job, (void *)game) != 0)
 		return (pthread_mutex_destroy(game->timer->mtx_run), pthread_mutex_destroy(game->timer->mtx_time), 0);
+	pthread_detach(game->timer->thread);
 	return (1);
 }
 

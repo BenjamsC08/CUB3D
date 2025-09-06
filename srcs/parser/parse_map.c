@@ -18,25 +18,32 @@ static int	prealable_check(t_game *game, char c, int y, int x)
 static int	check_char(t_game *game, char **map, int j, int i)
 {
 	if (!prealable_check(game, map[j][i], j, i))
-		return (0);
-	if ((j == 0 || i == 0) && (map[j][i] != '1' && !ft_iswhitespace(map[j][i])))
-		return (0);
-
-	if (ft_iswhitespace(map[j][i]))
+		return (ft_dprintf(2, "0"), 0);
+	if (j == 0 || i == 0 || j == game->data_desc->nb_line - 1 || (t_uint)i == ft_strlen(map[j]))
 	{
-		if ((map[j][i - 1] && map[j][i - 1] != '1')
-			|| (map[j][i + 1] && map[j][i + 1] != '1')
-			|| (map[j - 1][i] && map[j - 1][i] != '1')
-			|| (map[j + 1][i] && map[j + 1][i] != '1'))
-			return (0);
+		if (map[j][i] != '1' && !ft_iswhitespace(map[j][i]))
+			return (ft_dprintf(2, "1"), 0);
+		else
+			return (1);
 	}
-	else if (map[j][i] == '0' || map[j][i] == '2' || ft_ischarset(map[j][i], "NSWE"))
+	else if (ft_iswhitespace(map[j][i]))
+	{
+		if (map[j][i - 1] && !ft_ischarset(map[j][i-1], "1 "))
+			return (ft_dprintf(2, "20"), 0);
+		if (map[j][i + 1] && !ft_ischarset(map[j][i+1], "1 "))
+			return (ft_dprintf(2, "21"), 0);
+		if (map[j - 1][i] && !ft_ischarset(map[j-1][i], "1 "))
+			return (ft_dprintf(2, "22"), 0);
+		if (map[j + 1][i] && !ft_ischarset(map[j+1][i], "1 "))
+			return (ft_dprintf(2, "23"), 0);
+	}
+	else if (ft_ischarset(map[j][i], "023NSWE"))
 	{
 		if ((!map[j][i - 1] || ft_iswhitespace(map[j][i - 1]))
 			|| (!map[j][i + 1] || ft_iswhitespace(map[j][i + 1]))
 			|| (!map[j - 1][i] || ft_iswhitespace(map[j - 1][i]))
 			|| (!map[j + 1][i] || ft_iswhitespace(map[j + 1][i])))
-			return (0);
+			return (ft_dprintf(2, "3"), 0);
 	}
 	return (1);
 }
@@ -51,10 +58,10 @@ static int check_map(t_game *game)
 	if (!game->data_desc->map || !*game->data_desc->map)
 		return (0);
 	map = ft_strsdup(game->data_desc->map);
-	while (map[j])
+	while (map[j] && j < game->data_desc->nb_line)
 	{
 		i = 0;
-		while (map[j][i] && map[j][i] != '\n')
+		while (map[j][i] && map[j][i] != '\n' )
 		{
 			if (!check_char(game, map, j, i))
 				return (error_map(map,j, i));
@@ -123,6 +130,7 @@ int extract_map(t_game *game, int fd)
 		line = get_next_line(fd);
 		i++;
 	}
+	// map = ft_strsfadd(map, "11111");
 	game->data_desc->map = ft_add_strs_gc(game->gc_head, map);
 	game->data_desc->line_length = length;
 	game->data_desc->nb_line = i;
