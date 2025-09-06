@@ -10,7 +10,7 @@ void  stop_thread(t_game *game)
 
 int  close_all(t_game *game)
 {
-	stop_thread(game);
+	/*stop_thread(game);*/
 	if (game->data_img->img)
 		mlx_destroy_image(game->mlx, game->data_img->img);
 	mlx_destroy_window(game->mlx, game->win);
