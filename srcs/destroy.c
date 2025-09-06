@@ -5,12 +5,11 @@ void  stop_thread(t_game *game)
 	pthread_mutex_lock(game->timer->mtx_run);
 	game->timer->run = FALSE;
 	pthread_mutex_unlock(game->timer->mtx_run);
-	pthread_join(game->timer->thread, NULL);
 }
 
 int  close_all(t_game *game)
 {
-	/*stop_thread(game);*/
+	stop_thread(game);
 	if (game->data_img->img)
 		mlx_destroy_image(game->mlx, game->data_img->img);
 	mlx_destroy_window(game->mlx, game->win);
