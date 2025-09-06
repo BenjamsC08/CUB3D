@@ -13,7 +13,7 @@
 # define W_WIDTH 2560
 # define W_HEIGHT 1370
 
-# define BLOCK 40
+# define BLOCK 30
 
 
 # define SPACE			32
@@ -29,6 +29,13 @@
 # define D_ARROW		65364
 # define SHIFT			65505
 # define CAPS			65509
+
+
+# define PAD_2 65433
+# define PAD_4 65430
+# define PAD_6 65432
+# define PAD_8 65431
+# define BACKSPACE 65288
 
 
 # define MLX_BLACK		0

@@ -18,6 +18,9 @@ int		encode_rgb(t_byte r, t_byte g, t_byte b);
 t_byte	get_r(int rgb);
 t_byte	get_g(int rgb);
 t_byte	get_b(int rgb);
+//						Gameplay
+void	back_to_home(t_game *game);
+void	set_angle(t_game *game, int keycode);
 
 //						Disp
 void	ft_pixel_put(t_game *game, int x, int y, int color);

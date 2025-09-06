@@ -6,7 +6,7 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:28:33 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 15:11:33 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/06 06:32:25 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ static void	move(t_game *game)
 	move_speed = WALK_SPD;
 	if (game->player->run == TRUE)
 		move_speed = RUN_SPD;
-	if ((game->player->key_up == TRUE || game->player->key_down == TRUE)
+	if (((game->player->key_up == TRUE || game->player->key_down == TRUE)
 		&& (game->player->key_left == TRUE || game->player->key_right == TRUE))
+		|| game->player->key_down == TRUE)
 		move_speed *= 0.5f;
 	dir_x = cosf(game->player->angle);
 	dir_y = sinf(game->player->angle);

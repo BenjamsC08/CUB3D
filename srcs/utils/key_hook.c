@@ -6,16 +6,23 @@
 /*   By: mkerrien <mkerrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 05:17:55 by mkerrien          #+#    #+#             */
-/*   Updated: 2025/09/05 07:49:23 by mkerrien         ###   ########.fr       */
+/*   Updated: 2025/09/06 06:09:34 by mkerrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-/**/
-/*static int	key_pressed2(int keycode, t_game *game)*/
-/*{*/
-/*	if (keycode == )*/
-/*}*/
+
+static int	key_pressed2(int keycode, t_game *game)
+{
+	if (keycode == PAD_2 || keycode == PAD_4
+		|| keycode == PAD_6 || keycode == PAD_8)
+		set_angle(game, keycode);
+	else if (keycode == BACKSPACE)
+		back_to_home(game);
+	else
+		ft_printf("key unknown press code :%d\n", keycode);
+	return (0);
+}
 
 int	key_pressed(int keycode, t_game *game)
 {
@@ -42,7 +49,7 @@ int	key_pressed(int keycode, t_game *game)
 	else if (keycode == R_ARROW)
 			game->player->rot_right = TRUE;
 	else
-		ft_printf("key unknown press code :%d\n", keycode);
+		return (key_pressed2(keycode, game));
 	return (0);
 }
 
